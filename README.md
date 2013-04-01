@@ -1,2 +1,3 @@
-music_stream
-============
+Music Stream App
+================
+For Web Applications course at the Colorado School of Mines
