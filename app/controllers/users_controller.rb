@@ -46,7 +46,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_url, notice: "User #{@user.name} was successfully created." }
+        session[:user_id] = @user.id
+        format.html { redirect_to admin_url, notice: "User #{@user.name} was successfully created." }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -78,6 +79,7 @@ class UsersController < ApplicationController
 
     begin
       @user.destroy
+      session[:user_id] = nil if @user.id == session[:user_id]
       flash.notice = "User #{@user.name} destroyed"
     rescue Exception => e
       flash.notice = e.message
