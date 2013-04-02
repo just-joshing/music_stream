@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :authorize
+  skip_before_filter :authorize, only: [:index, :new, :create, :show]
 
   # GET /users
   # GET /users.json
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(session[:user_id])
   end
 
   # POST /users
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user = User.find(params[:id])
+    @user = User.find(session[:user_id])
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
