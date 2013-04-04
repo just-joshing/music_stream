@@ -11,3 +11,13 @@
  *= require_self
  *= require_tree .
  */
+
+#banner, #userbar {
+	width: 50%;
+	display: inline;
+}
+
+#userbar {
+	float: right;
+	text-align: right;
+}
