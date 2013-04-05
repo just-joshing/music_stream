@@ -21,6 +21,12 @@
     </div>
   </div>
 
+  <% if flash.alert %>
+    <p id="notice"><%= flash.alert %></p>
+  <% elsif notice %>
+    <p id="notice"><%= notice %></p>
+  <% end %>
+
   <%= yield %>
 
 </body>
