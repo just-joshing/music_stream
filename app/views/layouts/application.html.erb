@@ -12,7 +12,10 @@
 
     <div id="userbar">
     	<% if session[:user_id] %>
-    	  <%= link_to 'Admin', admin_path %> |
+        <%= link_to get_session_user.name, edit_path %> |
+        <% if get_session_user.is_admin? %>
+    	    <%= link_to 'Admin', admin_path %> |
+        <% end %>
     	  <%= link_to 'Logout', logout_path, method: :delete %>
     	<% else %>
     	  <%= link_to 'Sign-up', signup_path %> |

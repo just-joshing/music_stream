@@ -5,12 +5,16 @@ class User < ActiveRecord::Base
   has_attached_file :avatar,
     :styles => { :small => '150x150>', :thumb => '100x100#' },
     :default_url => "/assets/default_:style.jpg"
-  after_destroy :ensure_an_admin_remains
+  before_destroy :ensure_an_admin_remains
+
+  def is_admin?
+    self.role == 'admin'
+  end
 
   private
 
   def ensure_an_admin_remains
-    if User.count.zero?
+    unless !is_admin? or User.count(:conditions => 'role = "admin"') > 1
       raise "Can't delete last admin"
     end
   end

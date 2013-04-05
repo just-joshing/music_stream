@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_filter :authorize, only: [:new, :create]
+  before_filter :authorize_admin, only: [:destroy]
 
   # GET /users
   # GET /users.json

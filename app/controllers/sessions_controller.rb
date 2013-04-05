@@ -2,6 +2,9 @@ class SessionsController < ApplicationController
   skip_before_filter :authorize, only: [:new, :create]
 
   def new
+    unless session[:user_id].nil?
+      redirect_to music_path
+    end
   end
 
   def create
@@ -16,6 +19,6 @@ class SessionsController < ApplicationController
 
   def destroy
   	session[:user_id] = nil
-  	redirect_to login_url, notice: 'Logged out'
+  	redirect_to login_url, notice: 'Successfully logged out'
   end
 end
