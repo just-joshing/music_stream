@@ -1,5 +1,6 @@
 MusicStream::Application.routes.draw do
   get 'admin' => 'admin#index'
+  get '/admin/user/:id' => 'admin#user'
 
   controller :sessions do
     get 'login' => :new
@@ -8,7 +9,6 @@ MusicStream::Application.routes.draw do
   end
 
   resources :users
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
