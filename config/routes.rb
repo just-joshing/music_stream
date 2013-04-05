@@ -8,7 +8,14 @@ MusicStream::Application.routes.draw do
     delete 'logout' => :destroy
   end
 
-  resources :users
+  controller :users do
+    get 'signup' => :new
+    post 'signup' => :create
+    get 'music' => :show
+    get 'edit' => :edit
+    put 'edit' => :update
+    delete '/users/:id' => :delete
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -59,7 +66,7 @@ MusicStream::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'sessions#new'
+  root :to => 'users#show'
 
   # See how all your routes lay out with "rake routes"
 
