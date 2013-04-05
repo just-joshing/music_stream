@@ -16,7 +16,7 @@ MusicStream::Application.routes.draw do
     get 'music' => :show
     get 'edit' => :edit
     put 'edit' => :update
-    delete '/users/:id' => :delete
+    delete '/users/:id' => :destroy
   end
 
   # The priority is based upon order of creation:
