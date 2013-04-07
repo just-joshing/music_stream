@@ -3,7 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .users {
-	.music {
+	.content table {
+		td {
+			vertical-align: top;
+		}
+
 		table {
 			border: 1px solid black;
 		}
