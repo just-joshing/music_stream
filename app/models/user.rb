@@ -1,10 +1,14 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :password, :password_confirmation, :avatar
+  has_many :songs
   validates :name, presence: true, uniqueness: true
+  validates :avatar, :attachment_content_type => { :content_type => [ 'image/jpeg', 'image/png', 'image/bmp', 'image/gif' ] }
   has_secure_password
   has_attached_file :avatar,
     :styles => { :small => '150x150>', :thumb => '100x100#' },
-    :default_url => "/assets/default_:style.jpg"
+    :default_url => "/assets/default_:style.jpg",
+    :url => "/system/:class/:attachment/:id/:style/:filename",
+    :path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
   before_destroy :ensure_an_admin_remains
 
   def is_admin?

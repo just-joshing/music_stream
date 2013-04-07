@@ -1,6 +1,24 @@
-<%= image_tag @user.avatar.url(:small)%>
+<div class="info">
+	<%= image_tag @user.avatar.url(:small)%>
+	<p><strong>Name:</strong> <%= @user.name %></p>
+</div>
 
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
+<div class="music">
+	<% @user.songs.each do |song| %>
+		<p><%= song.audio_file_file_name %></p>
+	<% end %>
+</div>
+
+<div class="upload">
+	<%= form_tag music_path, :multipart => true do %>
+		<fieldset>
+	    <legend>Upload Song</legend>
+	    <div class="field">
+	      <%= file_field_tag :audio_file %>
+	    </div>
+	    <div class="actions">
+	      <%= submit_tag "Upload Song" %>
+	    </div>
+	  </fieldset>
+	<% end %>
+</div>

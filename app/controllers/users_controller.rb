@@ -91,4 +91,14 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def upload
+    song = Song.new
+    song.update_attributes(:audio_file => params[:audio_file], :user_id => session[:user_id])
+    if song.save
+      redirect_to music_path
+    else
+      redirect_to music_path, alert: "Song was unsuccessfully uploaded"
+    end
+  end
 end
