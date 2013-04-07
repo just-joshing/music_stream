@@ -10,6 +10,7 @@ gem 'sqlite3'
 gem 'paperclip'
 gem 'rmagick'
 
+gem 'taglib-ruby', :require => 'taglib'
 
 # Gems used only for assets and not required
 # in production environments by default.

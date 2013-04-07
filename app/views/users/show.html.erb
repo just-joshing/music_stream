@@ -6,9 +6,17 @@
 <div class="music">
 	<table>
 		<caption><strong>My Music</strong></caption>
+		<tr>
+			<th>Title</th>
+			<th>Artist</th>
+			<th>Album</th>
+		</tr>
+
 		<% @user.songs.each do |song| %>
 			<tr>
-				<td><%= song.audio_file_file_name %></td>
+				<td><%= song.title %></td>
+				<td><%= song.artist %></td>
+				<td><%= song.album %></td>
 			</tr>
 		<% end %>
 	</table>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130406233840) do
+ActiveRecord::Schema.define(:version => 20130407044426) do
 
   create_table "songs", :force => true do |t|
     t.datetime "created_at",              :null => false
@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(:version => 20130406233840) do
     t.integer  "audio_file_file_size"
     t.datetime "audio_file_updated_at"
     t.integer  "user_id"
+    t.string   "title"
+    t.string   "artist"
+    t.string   "album"
   end
 
   create_table "users", :force => true do |t|

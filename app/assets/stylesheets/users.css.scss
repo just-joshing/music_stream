@@ -3,20 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .users {
-	.info {
-		float: left;
-		margin-right: 10px;
-	}
-
 	.music {
-		float: left;
-
 		table {
 			border: 1px solid black;
 		}
-	}
-
-	.upload {
-		clear: both;
 	}
 }
