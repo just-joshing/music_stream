@@ -4,9 +4,14 @@
 </div>
 
 <div class="music">
-	<% @user.songs.each do |song| %>
-		<p><%= song.audio_file_file_name %></p>
-	<% end %>
+	<table>
+		<caption><strong>My Music</strong></caption>
+		<% @user.songs.each do |song| %>
+			<tr>
+				<td><%= song.audio_file_file_name %></td>
+			</tr>
+		<% end %>
+	</table>
 </div>
 
 <div class="upload">
