@@ -17,6 +17,12 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(session[:user_id])
+    if params[:search]
+      regex = "%#{params[:search]}%"
+      @songs = @user.songs.find(:all, :conditions => ['title like ? or artist like ? or album like ?', regex, regex, regex])
+    else
+      @songs = @user.songs
+    end
 
     respond_to do |format|
       format.html # show.html.erb
