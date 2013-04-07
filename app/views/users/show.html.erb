@@ -1,14 +1,13 @@
 <div class="content">
 	<table>
 		<tr>
-			<td>
+			<td class="info">
 				<%= image_tag @user.avatar.url(:small)%>
-				<p><strong>Name:</strong> <%= @user.name %></p>
+				<p><strong><%= @user.name %></strong></p>
 			</td>
 
 			<td>
-				<table>
-					<caption><strong>My Music</strong></caption>
+				<table class="rounded">
 					<tr>
 						<th>Title</th>
 						<th>Artist</th>
@@ -16,7 +15,7 @@
 					</tr>
 
 					<% @user.songs.each do |song| %>
-						<tr>
+						<tr class="<%= cycle('shaded', '') %>">
 							<td><%= song.title %></td>
 							<td><%= song.artist %></td>
 							<td><%= song.album %></td>
@@ -31,7 +30,7 @@
 <div class="upload">
 	<%= form_tag music_path, :multipart => true do %>
 		<fieldset>
-	    <legend>Upload Song</legend>
+	    <legend><strong>Upload Song</strong></legend>
 	    <div class="field">
 	      <%= file_field_tag :audio_file %>
 	    </div>

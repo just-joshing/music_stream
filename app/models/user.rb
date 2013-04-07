@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :password, :password_confirmation, :avatar
-  has_many :songs
-  validates :name, presence: true, uniqueness: true
+  attr_accessible :name, :email, :password, :password_confirmation, :avatar
+  has_many :songs, dependent: :destroy
+  validates :name, presence: true
+  validates :email, presence: true, uniqueness: true
   validates :avatar, :attachment_content_type => { :content_type => [ 'image/jpeg', 'image/png', 'image/bmp', 'image/gif' ] }
   has_secure_password
   has_attached_file :avatar,

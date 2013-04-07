@@ -12,12 +12,39 @@
  *= require_tree .
  */
 
+#header {
+	background-color: black;
+	padding: 10px;
+}
+
+.rounded, fieldset {
+	border-radius: 5px;
+}
+
+fieldset {
+	background-color: #eee;
+}
+
 #banner, #userbar {
 	width: 50%;
 	display: inline;
 }
 
+#banner a {
+	text-decoration: none;
+	color: white;
+}
+
 #userbar {
 	float: right;
 	text-align: right;
+}
+
+#userbar a {
+	color: #bbb;
+	text-decoration: none;
+}
+
+#userbar a:hover {
+	color: white;
 }

@@ -3,13 +3,33 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .users {
-	.content table {
-		td {
-			vertical-align: top;
-		}
-
+	.content {
+		width: 100%;
 		table {
-			border: 1px solid black;
+			width: 100%;
+
+			.info {
+				width: 150px;
+				text-align: center;
+			}
+
+			th {
+				text-align: left;
+			}
+
+			td {
+				vertical-align: top;
+			}
+
+			table {
+				width: 100%;
+				border: 2px solid #bbb;
+				background-color: #eee;
+
+				.shaded {
+					background-color: #ddd;
+				}
+			}
 		}
 	}
 }

@@ -1,11 +1,11 @@
-<div class="music_form">
+<div>
 	<%= form_tag do %>
 		<fieldset>
-			<legend>Please Log In</legend>
+			<legend><strong>Please Log In</strong></legend>
 
 			<div>
-				<%= label_tag :name, 'Name:' %>
-				<%= text_field_tag :name, params[:name] %>
+				<%= label_tag :email, 'Email:' %>
+				<%= text_field_tag :email, params[:email] %>
 			</div>
 
 			<div>

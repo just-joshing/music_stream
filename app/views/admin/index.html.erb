@@ -10,8 +10,11 @@
 <% @users.each do |user| %>
   <tr>
     <td>
-      <div><%= user.name %></div>
       <div><%= image_tag user.avatar.url(:thumb) %></div>
+    </td>
+    <td>
+			<div><%= user.email %></div>
+			<div><%= user.name %></div>
     </td>
     <td>
       <%= link_to 'Delete', "/users/#{user.id}", method: :delete, data: { confirm: 'Are you sure?' } %>
