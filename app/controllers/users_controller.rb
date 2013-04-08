@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.find(session[:user_id])
     if params[:search]
       regex = "%#{params[:search]}%"
-      @songs = @user.songs.find(:all, :conditions => ['title like ? or artist like ? or album like ?', regex, regex, regex])
+      @songs = @user.songs.where('title like ? or artist like ? or album like ?', regex, regex, regex)
     else
       @songs = @user.songs
     end
@@ -110,10 +110,27 @@ class UsersController < ApplicationController
       if song.save
         redirect_to music_path, notice: "Song successfully uploaded"
       else
-        redirect_to music_path, notice: "Unable to read song tags"
+        redirect_to music_path, alert: "Unable to read song tags"
       end
     else
       redirect_to music_path, alert: "Song was unsuccessfully uploaded"
     end
+  end
+
+  def destroy_music
+    song_ids = params[:songs]
+
+    begin
+      Song.transaction do
+        song_ids.each do |song_id|
+          Song.find(song_id).destroy
+        end
+      end
+      flash.notice = "Songs deleted"
+    rescue Exception => e
+      flash.notice = e.message
+    end
+
+    redirect_to music_path
   end
 end

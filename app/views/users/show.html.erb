@@ -7,8 +7,19 @@
 			</td>
 
 			<td>
+				<!-- Using form here rather than a helper to remove utf-8 addition to the url on a search -->
+				<form id="search_form" method="get" action="<%= music_path %>">
+					<%= text_field_tag :search, params[:search], autofocus: true %>
+					<%= submit_tag "Search", name: nil %>
+				</form>
+
+				<%= form_tag music_path, method: :delete, data: { confirm: 'Are you sure you want to delete the selected songs?' }, id: 'delete_music_form' do %>
+					<%= submit_tag "Delete Selected" %>
+				<% end %>
+
 				<table class="rounded">
 					<tr>
+						<th></th>
 						<th>Title</th>
 						<th>Artist</th>
 						<th>Album</th>
@@ -16,21 +27,20 @@
 
 					<% @songs.each do |song| %>
 						<tr class="<%= cycle('shaded', '') %>">
+							<td><input name="songs[]" form="delete_music_form" type="checkbox" value="<%= song.id %>"/></td>
 							<td><%= song.title %></td>
 							<td><%= song.artist %></td>
 							<td><%= song.album %></td>
 						</tr>
 					<% end %>
+
+					<tr>
+					</tr>
 				</table>
 			</td>
 		</tr>
 	</table>
 </div>
-
-<%= form_tag music_path, :method => 'get' do %>
-	<%= text_field_tag :search, params[:search] %>
-	<%= submit_tag "Search" %>
-<% end %>
 
 <div class="upload">
 	<%= form_tag music_path, :multipart => true do %>

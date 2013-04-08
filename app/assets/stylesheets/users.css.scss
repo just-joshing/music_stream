@@ -5,6 +5,7 @@
 .users {
 	.content {
 		width: 100%;
+
 		table {
 			width: 100%;
 
@@ -13,23 +14,31 @@
 				text-align: center;
 			}
 
-			th {
-				text-align: left;
-			}
-
 			td {
 				vertical-align: top;
-			}
 
-			table {
-				width: 100%;
-				border: 2px solid #bbb;
-				background-color: #eee;
+				#search_form {
+					float: right;
+				}
 
-				.shaded {
-					background-color: #ddd;
+				table {
+					width: 100%;
+					border: 2px solid #bbb;
+					background-color: #eee;
+
+					th {
+						text-align: left;
+					}
+
+				//	tr:hover {
+				//		background-color: #aac;
+				//	}
 				}
 			}
 		}
+	}
+
+	.shaded {
+		background-color: #ddd;
 	}
 }
