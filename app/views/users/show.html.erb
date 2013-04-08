@@ -13,6 +13,10 @@
 					<%= submit_tag "Search", name: nil %>
 				</form>
 
+				<%= form_tag music_path, id: 'play_music_form', onSubmit: 'enableHidden' do %>
+					<%= submit_tag "Play Selected" %>
+				<% end %>
+
 				<%= form_tag music_path, method: :delete, data: { confirm: 'Are you sure you want to delete the selected songs?' }, id: 'delete_music_form' do %>
 					<%= submit_tag "Delete Selected" %>
 				<% end %>
@@ -27,7 +31,10 @@
 
 					<% @songs.each do |song| %>
 						<tr class="<%= cycle('shaded', '') %>">
-							<td><input name="songs[]" form="delete_music_form" type="checkbox" value="<%= song.id %>"/></td>
+							<td>
+								<input name="delete_songs[]" form="delete_music_form" type="checkbox" value="<%= song.id %>" onclick="click_hidden(this);"/>
+								<input name="play_songs[]" id="hidden_<%= song.id %>" form="play_music_form" type="checkbox" value="<%= song.id %>" style="display: none"/>
+							</td>
 							<td><%= song.title %></td>
 							<td><%= song.artist %></td>
 							<td><%= song.album %></td>
@@ -54,4 +61,21 @@
 	    </div>
 	  </fieldset>
 	<% end %>
+</div>
+
+<div>
+	<fieldset>
+		<% if request.env["HTTP_USER_AGENT"] =~ /firefox/i%>
+			<% if session[:now] %>
+				<object data="<%= session[:now] %>" type="audio/mp3" width="300px" height="32px"></object>
+			<% else %>
+				<audio controls></audio>
+			<% end %>
+		<% else %>
+			<audio controls autoplay="autoplay">
+				<source src="<%= session[:now] %>" type="audio/mp3"/>
+				Your browser does not support the HTML5 audio player.
+			</audio>
+		<% end %>
+	</fieldset>
 </div>

@@ -98,27 +98,38 @@ class UsersController < ApplicationController
     end
   end
 
-  def upload
-    song = Song.new
-    song.update_attributes(:audio_file => params[:audio_file], :user_id => session[:user_id])
-    if song.save
-      TagLib::MPEG::File.open(song.audio_file.path) do |file|
-        tag = file.tag
-        song.update_attributes(:title => tag.title, :artist => tag.artist, :album => tag.album)
-      end
+  def post
 
+    if params[:commit] == "Upload Song"
+      song = Song.new
+      song.update_attributes(:audio_file => params[:audio_file], :user_id => session[:user_id])
       if song.save
-        redirect_to music_path, notice: "Song successfully uploaded"
+        TagLib::MPEG::File.open(song.audio_file.path) do |file|
+          tag = file.tag
+          song.update_attributes(:title => tag.title, :artist => tag.artist, :album => tag.album)
+        end
+
+        if song.save
+          redirect_to music_path, notice: "Song successfully uploaded"
+        else
+          redirect_to music_path, alert: "Unable to read song tags"
+        end
       else
-        redirect_to music_path, alert: "Unable to read song tags"
+        redirect_to music_path, alert: "Song was unsuccessfully uploaded"
       end
-    else
-      redirect_to music_path, alert: "Song was unsuccessfully uploaded"
+    elsif params[:commit] == "Play Selected"
+      if params[:play_songs]
+        session[:now] = Song.find(params[:play_songs][0]).audio_file.url
+        redirect_to music_path, notice: "Songs playing"
+      else
+        session[:now] = nil
+        redirect_to music_path
+      end
     end
   end
 
   def destroy_music
-    song_ids = params[:songs]
+    song_ids = params[:delete_songs]
 
     begin
       Song.transaction do
