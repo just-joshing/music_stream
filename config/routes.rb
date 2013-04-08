@@ -3,6 +3,7 @@ MusicStream::Application.routes.draw do
 
   get 'admin' => 'admin#index'
   get '/admin/user/:id' => 'admin#user'
+  put '/admin/user/:id' => 'admin#update'
 
   controller :sessions do
     get 'login' => :new

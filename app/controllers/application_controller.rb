@@ -20,5 +20,8 @@ class ApplicationController < ActionController::Base
     unless user and user.role == 'admin'
       redirect_to :back
     end
+
+    rescue ActionController::RedirectBackError
+      redirect_to root_path
   end
 end

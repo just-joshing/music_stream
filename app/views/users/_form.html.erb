@@ -30,6 +30,7 @@
       <%= f.password_field :password_confirmation, size: 40 %>
     </div>
     <div class="field">
+      <%= image_tag @user.avatar.url(:thumb)%>
       <%= f.file_field :avatar %>
     </div>
     <div class="actions">

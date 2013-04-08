@@ -6,9 +6,9 @@
 
 <h1>Listing users</h1>
 
-<table>
+<table class="rounded">
 <% @users.each do |user| %>
-  <tr>
+  <tr class="<%= cycle('shaded', '') %>">
     <td>
       <div><%= image_tag user.avatar.url(:thumb) %></div>
     </td>
@@ -18,7 +18,8 @@
       <div><strong># Songs Uploaded: </strong><%= Song.count(:conditions => "user_id=#{user.id}") %>
     </td>
     <td>
-      <%= link_to 'Delete', "/users/#{user.id}", method: :delete, data: { confirm: 'Are you sure?' } %>
+      <div><%= link_to 'Edit', "/admin/user/#{user.id}" %></div>
+      <div><%= link_to 'Delete', "/users/#{user.id}", method: :delete, data: { confirm: 'Are you sure?' } %></div>
     </td>
   </tr>
 <% end %>

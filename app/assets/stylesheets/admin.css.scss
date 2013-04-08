@@ -3,7 +3,25 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .admin {
-	td {
-		padding: 20px;
+	#search_form {
+		float: right;
+	}
+
+	table {
+		width: 100%;
+		border: 2px solid #bbb;
+		background-color: #eee;
+
+		th {
+			text-align: left;
+		}
+
+	//	tr:hover {
+	//		background-color: #aac;
+	//	}
+	}
+
+	.shaded {
+		background-color: #ddd;
 	}
 }
