@@ -1,3 +1,22 @@
+  <% content_for :head do %>
+    <%= stylesheet_link_tag "blue.monday/jplayer.blue.monday.css" %>
+  	<%= javascript_include_tag "jquery.jplayer.min.js" %>
+  <% end %>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#jquery_jplayer_1").jPlayer({
+        ready: function () {
+          $(this).jPlayer("setMedia", {
+            mp3: "<%= session[:now] %>",
+          });
+        },
+        swfPath: "<%= asset_path 'Jplayer.swf' %>",
+        supplied: "mp3"
+      });
+    });
+  </script>
+
 <div class="content">
 	<table>
 		<tr>
@@ -63,19 +82,45 @@
 	<% end %>
 </div>
 
-<div>
-	<fieldset>
-		<% if request.env["HTTP_USER_AGENT"] =~ /firefox/i%>
-			<% if session[:now] %>
-				<object data="<%= session[:now] %>" type="audio/mp3" width="300px" height="32px"></object>
-			<% else %>
-				<audio controls></audio>
-			<% end %>
-		<% else %>
-			<audio controls autoplay="autoplay">
-				<source src="<%= session[:now] %>" type="audio/mp3"/>
-				Your browser does not support the HTML5 audio player.
-			</audio>
-		<% end %>
-	</fieldset>
-</div>
+<fieldset>
+	<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+  <div id="jp_container_1" class="jp-audio">
+    <div class="jp-type-single">
+      <div class="jp-gui jp-interface">
+        <ul class="jp-controls">
+          <li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
+          <li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
+          <li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
+          <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
+          <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
+          <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
+        </ul>
+        <div class="jp-progress">
+          <div class="jp-seek-bar">
+            <div class="jp-play-bar"></div>
+          </div>
+        </div>
+        <div class="jp-volume-bar">
+          <div class="jp-volume-bar-value"></div>
+        </div>
+        <div class="jp-time-holder">
+          <div class="jp-current-time"></div>
+          <div class="jp-duration"></div>
+          <ul class="jp-toggles">
+            <li><a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat">repeat</a></li>
+            <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="jp-title">
+        <ul>
+          <li>Bubble</li>
+        </ul>
+      </div>
+      <div class="jp-no-solution">
+        <span>Update Required</span>
+        To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+      </div>
+    </div>
+  </div>
+</fieldset>
