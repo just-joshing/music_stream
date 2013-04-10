@@ -99,7 +99,6 @@ class UsersController < ApplicationController
   end
 
   def post
-
     if params[:commit] == "Upload Song"
       song = Song.new
       song.update_attributes(:audio_file => params[:audio_file], :user_id => session[:user_id])
@@ -120,16 +119,16 @@ class UsersController < ApplicationController
     elsif params[:commit] == "Play Selected"
       if params[:play_songs]
         session[:now] = Song.find(params[:play_songs][0]).audio_file.url
-        redirect_to music_path, notice: "Songs playing"
+        redirect_to music_path
       else
         session[:now] = nil
-        redirect_to music_path
+        redirect_to music_path, "Failed to play songs"
       end
     end
   end
 
   def destroy_music
-    song_ids = params[:delete_songs]
+    song_ids = params[:songs]
 
     begin
       Song.transaction do

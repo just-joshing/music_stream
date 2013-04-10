@@ -30,6 +30,10 @@
 						text-align: left;
 					}
 
+					.checkbox {
+						width: 10px;
+					}
+
 				//	tr:hover {
 				//		background-color: #aac;
 				//	}
@@ -44,5 +48,9 @@
 
 	#delete_music_form, #play_music_form {
 		display: inline;
+	}
+
+	#jplayer, .jplayer {
+		width: 450px;
 	}
 }

@@ -1,0 +1,33 @@
+var playlist;
+
+$(document).ready(function() {
+	playlist = new jPlayerPlaylist(
+		{
+			jPlayer: "#jquery_jplayer",
+			cssSelectorAncestor: "#jp_container"
+		},
+		[
+			// Empty playlist
+		],
+		{
+			playlistOptions: { enableRemoveControls: true },
+			swfPath: "<%= asset_path 'Jplayer.swf' %>",
+			supplied: "mp3",
+			wmode: "window"
+		}
+	);
+
+	$("#play").on("click", function() {
+		$("input[name='songs[]']:checked").each(function() {
+			var tit = $("#title" + this.value).text();
+			var art = $("#artist" + this.value).text();
+			var url = $("#url" + this.value).val();
+			playlist.add({
+				title: tit,
+				artist: art,
+				mp3: url
+			});
+		});
+		playlist.play();
+	});
+});
