@@ -1,0 +1,19 @@
+<table class="rounded">
+	<tr>
+		<th></th>
+		<th>Title</th>
+		<th>Artist</th>
+		<th>Album</th>
+	</tr>
+
+	<% @songs.each do |song| %>
+		<tr class="<%= cycle('shaded', '') %>">
+			<td class="checkbox">
+				<input name="songs[]" form="delete_music_form" type="checkbox" value="<%= song.id %>"/>
+			</td>
+			<td><%= song.title %></td>
+			<td><%= song.artist %></td>
+			<td><%= song.album %></td>
+		</tr>
+	<% end %>
+</table>

@@ -1,6 +1,6 @@
 var playlist;
 
-$(document).ready(function() {
+$(function() {
 	playlist = new jPlayerPlaylist(
 		{
 			jPlayer: "#jquery_jplayer",
@@ -32,5 +32,15 @@ $(document).ready(function() {
 			});
 			playlist.play();
 		});
+	});
+
+	$("#search_form").submit(function() {
+		$.get(this.action, $(this).serialize(), null, "script");
+		return false;
+	});
+
+	$("#search_form input").keyup(function() {
+		$.get($("#search_form").action, $("#search_form").serialize(), null, "script");
+		return false;
 	});
 });

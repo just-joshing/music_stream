@@ -16,17 +16,23 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(session[:user_id])
-    
-    if params[:search]
-      regex = "%#{params[:search]}%"
-      @songs = @user.songs.where('title like ? or artist like ? or album like ?', regex, regex, regex)
-    else
-      @songs = @user.songs
-    end
-
     respond_to do |format|
-      format.html # show.html.erb
+      format.html {
+        @user = get_session_user
+        @songs = @user.songs
+      }
+      
+      format.js {
+        @user = get_session_user
+        
+        if params[:search]
+          regex = "%#{params[:search].split.join('%')}%"
+          @songs = @user.songs.where('title like ? or artist like ? or album like ?', regex, regex, regex)
+        else
+          @songs = @user.songs
+        end
+      }
+
       format.json {
         songs = Song.find(params[:song_ids])
         objects = []
@@ -113,31 +119,21 @@ class UsersController < ApplicationController
   end
 
   def post
-    if params[:commit] == "Upload Song"
-      song = Song.new
-      song.update_attributes(:audio_file => params[:audio_file], :user_id => session[:user_id])
-      if song.save
-        TagLib::MPEG::File.open(song.audio_file.path) do |file|
-          tag = file.tag
-          song.update_attributes(:title => tag.title, :artist => tag.artist, :album => tag.album)
-        end
+    song = Song.new
+    song.update_attributes(:audio_file => params[:audio_file], :user_id => session[:user_id])
+    if song.save
+      TagLib::MPEG::File.open(song.audio_file.path) do |file|
+        tag = file.tag
+        song.update_attributes(:title => tag.title, :artist => tag.artist, :album => tag.album)
+      end
 
-        if song.save
-          redirect_to music_path, notice: "Song successfully uploaded"
-        else
-          redirect_to music_path, alert: "Unable to read song tags"
-        end
+      if song.save
+        redirect_to music_path, notice: "Song successfully uploaded"
       else
-        redirect_to music_path, alert: "Song was unsuccessfully uploaded"
+        redirect_to music_path, alert: "Unable to read song tags"
       end
-    elsif params[:commit] == "Play Selected"
-      if params[:play_songs]
-        session[:now] = Song.find(params[:play_songs][0]).audio_file.url
-        redirect_to music_path
-      else
-        session[:now] = nil
-        redirect_to music_path, "Failed to play songs"
-      end
+    else
+      redirect_to music_path, alert: "Song was unsuccessfully uploaded"
     end
   end
 
