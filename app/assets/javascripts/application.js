@@ -13,3 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+$(function() {
+	$("#notice").delay(2000).hide(2000);
+});
