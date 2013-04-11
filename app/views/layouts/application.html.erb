@@ -31,6 +31,12 @@
     <p id="notice"><%= notice %></p>
   <% end %>
 
+  <script>
+    $(function() {
+      $("#notice").delay(2000).hide(2000);
+    });
+  </script>
+
   <%= yield %>
 
 </body>
