@@ -43,4 +43,11 @@ $(function() {
 		$.get($("#search_form").action, $("#search_form").serialize(), null, "script");
 		return false;
 	});
+
+	$("#check_all").click(function() {
+		var checked = this.checked;
+		$('input[name="songs[]"]').each(function() {
+			this.checked = checked;
+		});
+	});
 });
