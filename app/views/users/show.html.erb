@@ -39,11 +39,10 @@
 						<tr class="<%= cycle('shaded', '') %>">
 							<td class="checkbox">
 								<input name="songs[]" form="delete_music_form" type="checkbox" value="<%= song.id %>"/>
-								<input id="url<%= song.id %>" type="hidden" value="<%= song.audio_file.url %>"
 							</td>
-							<td id="title<%= song.id %>"><%= song.title %></td>
-							<td id="artist<%= song.id %>"><%= song.artist %></td>
-							<td id="album<%= song.id %>"><%= song.album %></td>
+							<td><%= song.title %></td>
+							<td><%= song.artist %></td>
+							<td><%= song.album %></td>
 						</tr>
 					<% end %>
 				</table>

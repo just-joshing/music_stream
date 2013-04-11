@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(session[:user_id])
+    
     if params[:search]
       regex = "%#{params[:search]}%"
       @songs = @user.songs.where('title like ? or artist like ? or album like ?', regex, regex, regex)
@@ -26,7 +27,20 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @user }
+      format.json {
+        songs = Song.find(params[:song_ids])
+        objects = []
+        songs.each do |song|
+          object = '{ "title": "' << song.title << '", '
+          object << '"artist": "' << song.artist << '", '
+          object << '"url": "' << song.audio_file.url << '" } '
+          objects << object
+        end
+        @json = '{ "songs": [ '
+        @json << objects.join(', ')
+        @json << ' ] }'
+        render json: @json
+      }
     end
   end
 

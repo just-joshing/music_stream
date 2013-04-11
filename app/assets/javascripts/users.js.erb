@@ -18,16 +18,19 @@ $(document).ready(function() {
 	);
 
 	$("#play").on("click", function() {
-		$("input[name='songs[]']:checked").each(function() {
-			var tit = $("#title" + this.value).text();
-			var art = $("#artist" + this.value).text();
-			var url = $("#url" + this.value).val();
-			playlist.add({
-				title: tit,
-				artist: art,
-				mp3: url
+		var ids = $("input[name='songs[]']:checked").map(function() {
+			return this.value;
+		}).get();
+
+		$.getJSON("/music", { "song_ids": ids }, function(data) {
+			$.each(data.songs, function(index, song) {
+				playlist.add({
+					title: song.title,
+					artist: song.artist,
+					mp3: song.url
+				});
 			});
+			playlist.play();
 		});
-		playlist.play();
 	});
 });
