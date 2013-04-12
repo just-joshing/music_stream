@@ -6,13 +6,14 @@ class AdminController < ApplicationController
 
     if params[:search]
       regex = "%#{params[:search].split.join('%')}%"
-      @users = User.where('name like ? or email like ?', regex, regex).order(:name)
+      @users = User.where('name like ? or email like ? or role like ?', regex, regex, regex).order(:name)
     else
       @users = User.order(:name)
     end
   end
 
   def user
+    @options = ["admin", "user"];
   	@user = User.find_by_id(params[:id])
     if params[:search]
       regex = "%#{params[:search]}%"

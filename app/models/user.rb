@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   before_destroy :ensure_an_admin_remains
-  attr_accessible :name, :email, :password, :password_confirmation, :avatar
+  attr_accessible :name, :email, :password, :password_confirmation, :avatar, :role
   has_many :songs, dependent: :destroy
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
