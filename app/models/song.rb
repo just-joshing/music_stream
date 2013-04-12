@@ -4,5 +4,5 @@ class Song < ActiveRecord::Base
   has_attached_file :audio_file,
     :url => "/system/:class/:attachment/:id/:style/:filename",
     :path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
-  validates :audio_file, presence: true, :attachment_content_type => { :content_type => [ 'audio/mp3' ] }
+  validates :audio_file, presence: true, :attachment_content_type => { :content_type => [ 'audio/mp3', 'audio/mpeg' ] }
 end
