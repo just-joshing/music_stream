@@ -1,3 +1,12 @@
+<form id="search_form" method="get" action=<%= "/admin/user/#{@user.id}" %>>
+	<%= text_field_tag :search, params[:search], autofocus: true %>
+	<%= submit_tag "Search", name: nil %>
+</form>
+
+<%= form_tag music_path, method: :delete, data: { confirm: 'Are you sure you want to delete the selected songs?' }, id: 'delete_music_form' do %>
+	<%= submit_tag "Delete Selected" %>
+<% end %>
+
 <table class="rounded">
 	<tr>
 		<th class="checkbox_cell"><input id="check_all" type="checkbox"/></th>

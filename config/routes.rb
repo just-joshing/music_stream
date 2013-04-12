@@ -15,7 +15,7 @@ MusicStream::Application.routes.draw do
     get 'signup' => :new
     post 'signup' => :create
     get 'music' => :show
-    post 'music' => :post
+    post 'music' => :upload
     delete 'music' => :destroy_music
     get 'edit' => :edit
     put 'edit' => :update

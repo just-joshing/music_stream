@@ -3,54 +3,57 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .users {
-	.content {
-		width: 100%;
-
-		table {
-			width: 100%;
-
-			.info {
-				width: 150px;
-				text-align: center;
-			}
-
-			td {
-				vertical-align: top;
-
-				#search_form {
-					float: right;
-				}
-
-				table {
-					width: 100%;
-					border: 2px solid #bbb;
-					background-color: #eee;
-
-					th {
-						text-align: left;
-					}
-
-					.checkbox {
-						width: 10px;
-					}
-
-				//	tr:hover {
-				//		background-color: #aac;
-				//	}
-				}
-			}
+	.field {
+		input, img {
+			display: inline;
+			vertical-align: middle;
 		}
+	}
+
+	.jplayer {
+		width: 450px;
+	}
+
+	.user_info {
+		width: 150px;
+		text-align: center;
 	}
 
 	.shaded {
 		background-color: #ddd;
 	}
 
+	#search_form {
+		float: right;
+	}
+
 	#delete_music_form {
 		display: inline;
 	}
 
-	#jplayer, .jplayer {
-		width: 450px;
+	#upload_div {
+		width: 100px;
+	}
+
+	.checkbox_cell {
+		width: 10px;
+	}
+
+	#music_list > table {
+		width: 100%;
+		border: 2px solid #bbb;
+		background-color: #eee;
+
+		th {
+			text-align: left;
+		}
+	}
+
+	table {
+		width: 100%;
+
+		td {
+			vertical-align: top;
+		}
 	}
 }

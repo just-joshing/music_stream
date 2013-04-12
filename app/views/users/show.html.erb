@@ -4,24 +4,25 @@
 	<%= javascript_include_tag "jplayer.playlist.js" %>
 <% end %>
 
-<div class="content">
+<div>
 	<table>
 		<tr>
-			<td class="info">
+			<td class="user_info">
 				<%= image_tag @user.avatar.url(:small)%>
 				<p><strong><%= @user.name %></strong></p>
 			</td>
+
 			<td class="jplayer">
 				<div class="jplayer"><%= render 'jplayer' %></div>
 			</td>
+
 			<td>
-				<!-- Using form here rather than a helper to remove utf-8 addition to the url on a search -->
-				<form id="search_form" method="get" action="<%= music_path %>">
+				<%= form_tag music_path, method: :get, id: "search_form" do %>
 					<%= text_field_tag :search, params[:search], autofocus: true %>
 					<%= submit_tag "Search", name: nil %>
-				</form>
+				<% end %>
 
-				<input type="button" id="play" value="Add to Playlist"/>
+				<input type="button" id="add_to_playlist" value="Add to Playlist"/>
 
 				<%= form_tag music_path, method: :delete, data: { confirm: 'Are you sure you want to delete the selected songs?' }, id: 'delete_music_form' do %>
 					<%= submit_tag "Delete" %>
@@ -33,7 +34,7 @@
 	</table>
 </div>
 
-<div class="upload">
+<div id="upload_div">
 	<%= form_tag music_path, :multipart => true do %>
 		<fieldset>
 	    <legend><strong>Upload Song</strong></legend>

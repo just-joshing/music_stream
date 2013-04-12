@@ -2,8 +2,14 @@ class AdminController < ApplicationController
   before_filter :authorize_admin
 
   def index
-  	@admin = User.find_by_id(session[:user_id])
-  	@users = User.order(:name)
+  	@admin = get_session_user
+
+    if params[:search]
+      regex = "%#{params[:search].split.join('%')}%"
+      @users = User.where('name like ? or email like ?', regex, regex).order(:name)
+    else
+      @users = User.order(:name)
+    end
   end
 
   def user

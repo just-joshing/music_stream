@@ -1,43 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Music Stream</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-  <%= yield(:head) if content_for? :head %>
-</head>
-<body class="<%= controller.controller_name %>">
-  <div id="header" class="rounded">
-    <h1 id="banner"><%= link_to 'Music Stream', root_path %></h1>
+  <head>
+    <title>Music Stream</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <%= yield(:head) if content_for? :head %>
+  </head>
 
-    <div id="userbar">
-    	<% if session[:user_id] %>
-        <%= link_to get_session_user.name, edit_path %> |
-        <% if get_session_user.is_admin? %>
-    	    <%= link_to 'Admin', admin_path %> |
-        <% end %>
-    	  <%= link_to 'Logout', logout_path, method: :delete %>
-    	<% else %>
-    	  <%= link_to 'Sign-up', signup_path %> |
-        <%= link_to 'Login', login_path %>
-    	<% end %>
+  <body class="<%= controller.controller_name %>">
+    <div id="header" class="rounded">
+
+      <div id="userbar">
+      	<% if session[:user_id] %>
+          <%= link_to get_session_user.name, edit_path %> |
+          <% if get_session_user.is_admin? %>
+      	    <%= link_to 'Admin', admin_path %> |
+          <% end %>
+      	  <%= link_to 'Logout', logout_path, method: :delete %>
+      	<% else %>
+      	  <%= link_to 'Sign-up', signup_path %> |
+          <%= link_to 'Login', login_path %>
+      	<% end %>
+      </div>
+      <h1 id="banner"><%= link_to 'Music Stream', root_path %></h1>
+
     </div>
-  </div>
 
-  <% if flash.alert %>
-    <p id="notice"><%= flash.alert %></p>
-  <% elsif notice %>
-    <p id="notice"><%= notice %></p>
-  <% end %>
+    <% if flash.alert %>
+      <p id="notice"><%= flash.alert %></p>
+    <% elsif notice %>
+      <p id="notice"><%= notice %></p>
+    <% end %>
 
-  <script>
-    $(function() {
-      $("#notice").delay(2000).hide(2000);
-    });
-  </script>
-
-  <%= yield %>
-
-</body>
+    <%= yield %>
+  </body>
 </html>

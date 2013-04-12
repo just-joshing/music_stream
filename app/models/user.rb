@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  before_destroy :ensure_an_admin_remains
   attr_accessible :name, :email, :password, :password_confirmation, :avatar
   has_many :songs, dependent: :destroy
   validates :name, presence: true
@@ -10,7 +11,6 @@ class User < ActiveRecord::Base
     :default_url => "/assets/default_:style.jpg",
     :url => "/system/:class/:attachment/:id/:style/:filename",
     :path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
-  before_destroy :ensure_an_admin_remains
 
   def is_admin?
     self.role == 'admin'

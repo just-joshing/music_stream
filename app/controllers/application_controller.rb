@@ -6,17 +6,17 @@ class ApplicationController < ActionController::Base
   protected
 
   def get_session_user
-    User.find(session[:user_id])
+    User.find_by_id(session[:user_id])
   end
 
   def authorize
-    unless User.find_by_id(session[:user_id])
+    unless get_session_user
       redirect_to login_url, notice: 'Please log in'
     end
   end
 
   def authorize_admin
-  	user = User.find_by_id(session[:user_id])
+  	user = get_session_user
     unless user and user.role == 'admin'
       redirect_to :back
     end

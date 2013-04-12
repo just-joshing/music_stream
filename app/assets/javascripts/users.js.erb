@@ -2,9 +2,7 @@ var playlist;
 
 $(function() {
 	$("#notice").delay(2000).hide(2000);
-});
 
-$(function() {
 	playlist = new jPlayerPlaylist(
 		{
 			jPlayer: "#jquery_jplayer",
@@ -21,7 +19,7 @@ $(function() {
 		}
 	);
 
-	$("#play").on("click", function() {
+	$("#add_to_playlist").on("click", function() {
 		var ids = $("input[name='songs[]']:checked").map(function() {
 			return this.value;
 		}).get();

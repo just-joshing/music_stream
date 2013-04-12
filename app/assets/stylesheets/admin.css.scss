@@ -3,8 +3,23 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .admin {
+	.field {
+		input, img {
+			display: inline;
+			vertical-align: middle;
+		}
+	}
+	
 	#search_form {
 		float: right;
+	}
+
+	.shaded {
+		background-color: #ddd;
+	}
+
+	.checkbox_cell {
+		width: 10px;
 	}
 
 	table {
@@ -16,12 +31,9 @@
 			text-align: left;
 		}
 
-	//	tr:hover {
-	//		background-color: #aac;
-	//	}
-	}
-
-	.shaded {
-		background-color: #ddd;
+		img {
+			display: inline;
+			vertical-align: middle;
+		}
 	}
 }

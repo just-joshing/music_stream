@@ -17,16 +17,7 @@
 	padding: 10px;
 }
 
-.rounded, fieldset {
-	border-radius: 5px;
-}
-
-fieldset {
-	background-color: #eee;
-}
-
 #banner, #userbar {
-	width: 50%;
 	display: inline;
 }
 
@@ -47,4 +38,12 @@ fieldset {
 
 #userbar a:hover {
 	color: white;
+}
+
+fieldset {
+	background-color: #eee;
+}
+
+.rounded, fieldset {
+	border-radius: 5px;
 }
