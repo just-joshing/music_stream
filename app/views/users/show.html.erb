@@ -35,7 +35,8 @@
 </div>
 
 <div id="upload_div">
-	<%= form_tag music_path, :multipart => true do %>
+	<%= form_tag music_path, multipart: true, target: 'upload_frame', id: "upload_form" do %>
+		<iframe id='upload_frame' name="upload_frame" style="display: none"></iframe>
 		<fieldset>
 	    <legend><strong>Upload Song</strong></legend>
 	    <div class="field">

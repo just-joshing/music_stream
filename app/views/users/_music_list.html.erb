@@ -1,3 +1,7 @@
+<% if defined?(upload_message) %>
+	<input id="upload_message" type="hidden" value="<%= upload_message %>"/>
+<% end %>
+
 <table class="rounded">
 	<tr>
 		<th class="checkbox_cell"><input id="check_all" type="checkbox"/></th>

@@ -52,4 +52,19 @@ $(function() {
 			this.checked = checked;
 		});
 	});
+
+	$(function() {
+		$("#upload_frame").load(function() {
+			var music_list_html = document.getElementById("upload_frame").contentWindow.document.body.innerHTML;
+			if (music_list_html != "")
+				$("#music_list").html(music_list_html);
+
+			var notice = $("#notice_div");
+			var message = $("#upload_message");
+			if (document.getElementById("upload_message") != null) {
+				notice.html('<p id="notice">' + message.val() + '</p>');
+				notice.show().delay(2000).hide(2000);
+			}
+		});
+	});
 });

@@ -24,17 +24,9 @@ class UsersController < ApplicationController
       # ajax call
       format.json {
         songs = Song.find(params[:song_ids])
-        objects = []
-        songs.each do |song|
-          object = '{ "title": "' << song.title << '", '
-          object << '"artist": "' << song.artist << '", '
-          object << '"url": "' << song.audio_file.url << '" } '
-          objects << object
-        end
-        @json = '{ "songs": [ '
-        @json << objects.join(', ')
-        @json << ' ] }'
-        render json: @json
+        @json = { songs: [] }
+        songs.each { |song| @json[:songs] << song.to_hash }
+        render json: @json.to_json
       }
     end
   end
@@ -101,6 +93,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST /music
   def upload
     song = Song.new
     song.update_attributes(:audio_file => params[:audio_file], :user_id => session[:user_id])
@@ -110,9 +103,18 @@ class UsersController < ApplicationController
         song.update_attributes(:title => tag.title, :artist => tag.artist, :album => tag.album)
       end
 
-      redirect_to music_path, notice: "Song successfully uploaded"
+      upload_message = "Song successfully uploaded"
     else
-      redirect_to music_path, alert: "Song was unsuccessfully uploaded"
+      upload_message = "Song upload failed"
+    end
+
+    respond_to do |format|
+      # Gets rendered in an iframe so it is possible to upload a file in a manner similar to ajax
+      format.html {
+        @user = get_session_user
+        @songs = @user.songs
+        render partial: 'music_list', :locals => { :upload_message => upload_message }
+      }
     end
   end
 
