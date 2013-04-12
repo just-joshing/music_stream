@@ -24,7 +24,14 @@ class AdminController < ApplicationController
   end
 
   def update
+    @options = ["admin", "user"];
     @user = User.find(params[:id])
+    if params[:search]
+      regex = "%#{params[:search]}%"
+      @songs = @user.songs.where('title like ? or artist like ? or album like ?', regex, regex, regex)
+    else
+      @songs = @user.songs
+    end
 
     respond_to do |format|
       if @user.update_attributes(params[:user])

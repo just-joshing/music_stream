@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :avatar, :role
   has_many :songs, dependent: :destroy
   validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true, format: { with: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,4}$/ }
   validates :avatar, :attachment_content_type => { :content_type => [ 'image/jpeg', 'image/png', 'image/bmp', 'image/gif' ] }
   has_secure_password
   has_attached_file :avatar,
