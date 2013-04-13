@@ -12,10 +12,10 @@ $(function() {
 			// Empty playlist
 		],
 		{
-			playlistOptions: { enableRemoveControls: true },
+			playlistOptions: { enableRemoveControls: true, removeTime: 0 },
 			swfPath: "<%= asset_path 'Jplayer.swf' %>",
 			supplied: "mp3",
-			wmode: "window"
+			wmode: "window",
 		}
 	);
 
@@ -32,7 +32,6 @@ $(function() {
 					mp3: song.url
 				});
 			});
-			playlist.play();
 		});
 	});
 
@@ -80,5 +79,29 @@ $(function() {
 		}
 
 		return false;
+	});
+
+	$(".song_row").dblclick(function() {
+		var song_ids = [ $(this).find("input[type='checkbox']").val() ];
+		$.getJSON("/music", { "song_ids": song_ids }, function(data) {
+			while (playlist.playlist.length > 0) { playlist.remove(0); }
+			$.each(data.songs, function(index, song) {
+				playlist.add({
+					title: song.title,
+					artist: song.artist,
+					mp3: song.url
+				}, true);
+			});
+		});
+	});
+
+	$(".song_info_cell").click(function() {
+		var value = $(this).find("input[type='hidden']").val();
+		var checkbox = $("#checkbox_" + value);
+		checkbox.prop('checked', !checkbox.prop('checked'));
+	});
+
+	$("#clear_playlist").click(function() {
+		while (playlist.playlist.length > 0) { playlist.remove(0); }
 	});
 });

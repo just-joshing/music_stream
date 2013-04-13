@@ -19,8 +19,12 @@
 		text-align: center;
 	}
 
-	.shaded {
+	.shaded_odd {
 		background-color: #ddd;
+	}
+
+	.shaded_even {
+		background-color: #ccc;
 	}
 
 	#search_form {
@@ -35,18 +39,56 @@
 		width: 360px;
 	}
 
-	.checkbox_cell {
-		width: 10px;
+	.song_row td {
+		-moz-user-select     : none;
+		-khtml-user-select   : none;
+		-webkit-user-select  : none;
+		-o-user-select       : none;
+		user-select          : none;
 	}
 
-	#music_list > table {
-		width: 100%;
-		border: 2px solid #bbb;
-		background-color: #eee;
-
+	#music_list table {
 		th {
 			text-align: left;
 		}
+
+		th, td {
+			width: 33%;
+		}
+
+		th.checkbox_cell, td.checkbox_cell {
+			width: 10px;
+		}
+
+		.song_row:hover {
+			background-color: #009BE3;
+		}
+	}
+
+	.filler_cell {
+		width: 10px;
+	}
+
+	.table_head {
+		border: 2px solid #009BE3;
+		background-color: #eee;	
+	}
+
+	.table_body {
+		border-right: 2px solid #009BE3;
+		border-left: 2px solid #009BE3;
+		border-bottom: 2px solid #009BE3;
+		background-color: #eee;
+	}
+
+	.table_body {
+		overflow-y: auto;
+		max-height: 720px;
+	}
+
+	.jp-playlist {
+		overflow-y: auto;
+		max-height: 500px;
 	}
 
 	table {
@@ -55,5 +97,9 @@
 		td {
 			vertical-align: top;
 		}
+	}
+
+	#music_cell {
+		width: 100%;
 	}
 }

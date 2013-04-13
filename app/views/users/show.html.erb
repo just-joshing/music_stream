@@ -7,16 +7,45 @@
 <div>
 	<table>
 		<tr>
-			<td class="user_info">
-				<%= image_tag @user.avatar.url(:small)%>
-				<p><strong><%= @user.name %></strong></p>
-			</td>
-
-			<td class="jplayer">
-				<div class="jplayer"><%= render 'jplayer' %></div>
-			</td>
-
 			<td>
+				<table>
+					<tr>
+						<td class="user_info">
+							<fieldset>
+								<legend><strong><%= @user.name %></strong></legend>
+								<%= image_tag @user.avatar.url(:small)%>
+							</fieldset>
+						</td>
+						<td>
+							<div id="upload_div">
+								<%= form_tag music_path, multipart: true, target: 'upload_frame', id: "upload_form" do %>
+									<iframe id='upload_frame' name="upload_frame" style="display: none"></iframe>
+									<fieldset>
+								    <legend><strong>Upload Song</strong></legend>
+								    <div class="field">
+								      <%= file_field_tag :audio_file %>
+								    </div>
+								    <div class="actions">
+								      <%= submit_tag "Upload Song" %>
+								    </div>
+								  </fieldset>
+								<% end %>
+							</div>
+							<fieldset>
+								<legend><strong>Playlists</strong></legend>
+								<input type="button" id="clear_playlist" value="Clear Playlist"/>
+							</fieldset>
+						</td>
+					</tr>
+					<tr>
+						<td class="jplayer" colspan=2>
+							<%= render 'jplayer' %>
+						</td>
+					</tr>
+				</table>
+			</td>
+
+			<td id="music_cell">
 				<%= form_tag music_path, method: :get, id: "search_form" do %>
 					<%= text_field_tag :search, params[:search], autofocus: true %>
 					<%= submit_tag "Search", name: nil %>
@@ -32,19 +61,4 @@
 			</td>
 		</tr>
 	</table>
-</div>
-
-<div id="upload_div">
-	<%= form_tag music_path, multipart: true, target: 'upload_frame', id: "upload_form" do %>
-		<iframe id='upload_frame' name="upload_frame" style="display: none"></iframe>
-		<fieldset>
-	    <legend><strong>Upload Song</strong></legend>
-	    <div class="field">
-	      <%= file_field_tag :audio_file %>
-	    </div>
-	    <div class="actions">
-	      <%= submit_tag "Upload Song" %>
-	    </div>
-	  </fieldset>
-	<% end %>
 </div>

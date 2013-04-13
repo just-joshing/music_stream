@@ -42,8 +42,18 @@
 
 fieldset {
 	background-color: #eee;
+	border-color: #009BEA;
+	border-style: solid;
 }
 
 .rounded, fieldset {
 	border-radius: 5px;
+}
+
+.rounded_table_head {
+	border-radius: 5px 5px 0px 0px;
+}
+
+.rounded_table_body {
+	border-radius: 0px 0px 5px 5px;
 }
