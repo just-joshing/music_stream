@@ -103,9 +103,9 @@ class UsersController < ApplicationController
         song.update_attributes(:title => tag.title, :artist => tag.artist, :album => tag.album)
       end
 
-      upload_message = "Song successfully uploaded"
+      message = "Song successfully uploaded"
     else
-      upload_message = "Song upload failed"
+      message = "Song upload failed"
     end
 
     respond_to do |format|
@@ -113,7 +113,7 @@ class UsersController < ApplicationController
       format.html {
         @user = get_session_user
         @songs = @user.songs
-        render partial: 'music_list', :locals => { :upload_message => upload_message }
+        render partial: 'music_list', locals: { message: message }
       }
     end
   end
@@ -127,11 +127,14 @@ class UsersController < ApplicationController
           Song.find(song_id).destroy
         end
       end
-      flash.notice = "Songs deleted"
+      @message = "Songs deleted"
     rescue Exception => e
-      flash.notice = e.message
+      @message = e.message
     end
 
-    redirect_to music_path
+    respond_to do |format|
+      format.html { redirect_to music_path }
+      format.js { @songs = get_session_user.songs }
+    end
   end
 end

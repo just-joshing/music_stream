@@ -60,11 +60,25 @@ $(function() {
 				$("#music_list").html(music_list_html);
 
 			var notice = $("#notice_div");
-			var message = $("#upload_message");
-			if (document.getElementById("upload_message") != null) {
+			var message = $("#message");
+			if (document.getElementById("message") != null) {
 				notice.html('<p id="notice">' + message.val() + '</p>');
 				notice.show().delay(2000).hide(2000);
 			}
 		});
+	});
+
+	$("#delete_music_form").submit(function() {
+		var num_checked = $("input[name='songs[]']:checked").length;
+		if (num_checked > 0 && confirm("Are you sure you want to delete the selected songs?")) {
+			$.ajax ({
+				url: "/music",
+				type: "post",
+				dataType: "script",
+				data: $("#delete_music_form").serialize() + "&_method=delete"
+			});
+		}
+
+		return false;
 	});
 });

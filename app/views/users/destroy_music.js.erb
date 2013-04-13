@@ -1,0 +1,19 @@
+$("#music_list").html("<%= escape_javascript(render(partial: 'music_list', locals: { message: @message })) %>")
+
+var notice = $("#notice_div");
+var message = $("#message");
+if (document.getElementById("message") != null) {
+	notice.html('<p id="notice"><%= @message %></p>');
+	notice.show().delay(2000).hide(2000);
+}
+else {
+	alert("HEY");
+}
+
+// Have to re-register click event listener after ajax call
+$("#check_all").click(function() {
+	var checked = this.checked;
+	$('input[name="songs[]"]').each(function() {
+		this.checked = checked;
+	});
+});
