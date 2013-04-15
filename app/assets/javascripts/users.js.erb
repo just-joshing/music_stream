@@ -1,5 +1,29 @@
 var playlist;
 
+function registerRowDblClick() {
+	$(".song_row").dblclick(function() {
+		var song_ids = [ $(this).find("input[type='checkbox']").val() ];
+		$.getJSON("/music", { "song_ids": song_ids }, function(data) {
+			while (playlist.playlist.length > 0) { playlist.remove(0); }
+			$.each(data.songs, function(index, song) {
+				playlist.add({
+					title: song.title,
+					artist: song.artist,
+					mp3: song.url
+				}, true);
+			});
+		});
+	});
+}
+
+function registerRowClick() {
+	$(".song_info_cell").click(function() {
+		var value = $(this).find("input[type='hidden']").val();
+		var checkbox = $("#checkbox_" + value);
+		checkbox.prop('checked', !checkbox.prop('checked'));
+	});
+}
+
 $(function() {
 	$("#notice").delay(2000).hide(2000);
 
@@ -18,6 +42,9 @@ $(function() {
 			wmode: "window",
 		}
 	);
+
+	registerRowClick();
+	registerRowDblClick();
 
 	$("#add_to_playlist").on("click", function() {
 		var ids = $("input[name='songs[]']:checked").map(function() {
@@ -55,8 +82,11 @@ $(function() {
 	$(function() {
 		$("#upload_frame").load(function() {
 			var music_list_html = document.getElementById("upload_frame").contentWindow.document.body.innerHTML;
-			if (music_list_html != "")
+			if (music_list_html != "") {
 				$("#music_list").html(music_list_html);
+				registerRowClick();
+				registerRowDblClick();
+			}
 
 			var notice = $("#notice_div");
 			var message = $("#message");
@@ -79,26 +109,6 @@ $(function() {
 		}
 
 		return false;
-	});
-
-	$(".song_row").dblclick(function() {
-		var song_ids = [ $(this).find("input[type='checkbox']").val() ];
-		$.getJSON("/music", { "song_ids": song_ids }, function(data) {
-			while (playlist.playlist.length > 0) { playlist.remove(0); }
-			$.each(data.songs, function(index, song) {
-				playlist.add({
-					title: song.title,
-					artist: song.artist,
-					mp3: song.url
-				}, true);
-			});
-		});
-	});
-
-	$(".song_info_cell").click(function() {
-		var value = $(this).find("input[type='hidden']").val();
-		var checkbox = $("#checkbox_" + value);
-		checkbox.prop('checked', !checkbox.prop('checked'));
 	});
 
 	$("#clear_playlist").click(function() {

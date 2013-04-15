@@ -1,9 +1,4 @@
-$("#music_list").html("<%= escape_javascript(render('music_list')) %>")
+$("#music_list").html("<%= escape_javascript(render('music_list')) %>");
 
-// Have to re-register click event listener after ajax call
-$("#check_all").click(function() {
-	var checked = this.checked;
-	$('input[name="songs[]"]').each(function() {
-		this.checked = checked;
-	});
-});
+registerRowClick();
+registerRowDblClick();
