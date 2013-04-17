@@ -1,22 +1,14 @@
-var playlist;
+// -------------- Functions
 
-function registerRowDblClick() {
+function registerSongRowDblClick() {
 	$(".song_row").dblclick(function() {
 		var song_ids = [ $(this).find("input[type='checkbox']").val() ];
-		$.getJSON("/music", { "song_ids": song_ids }, function(data) {
-			while (playlist.playlist.length > 0) { playlist.remove(0); }
-			$.each(data.songs, function(index, song) {
-				playlist.add({
-					title: song.title,
-					artist: song.artist,
-					mp3: song.url
-				}, true);
-			});
-		});
+		while (playlist.playlist.length > 0) { playlist.remove(0); }
+		ajaxAddSongsToPlaylist(song_ids, true);
 	});
 }
 
-function registerRowClick() {
+function registerSongRowClick() {
 	$(".song_info_cell").click(function() {
 		var value = $(this).find("input[type='hidden']").val();
 		var checkbox = $("#checkbox_" + value);
@@ -24,10 +16,8 @@ function registerRowClick() {
 	});
 }
 
-$(function() {
-	$("#notice").delay(2000).hide(2000);
-
-	playlist = new jPlayerPlaylist(
+function createPlayer() {
+	return new jPlayerPlaylist(
 		{
 			jPlayer: "#jquery_jplayer",
 			cssSelectorAncestor: "#jp_container"
@@ -38,28 +28,49 @@ $(function() {
 		{
 			playlistOptions: { enableRemoveControls: true, removeTime: 0 },
 			swfPath: "<%= asset_path 'Jplayer.swf' %>",
-			supplied: "mp3",
+			supplied: "mp3, m4a",
 			wmode: "window",
 		}
 	);
+}
 
-	registerRowClick();
-	registerRowDblClick();
+function ajaxAddSongsToPlaylist(song_ids) {
+	ajaxAddSongsToPlaylist(song_ids, false);
+}
+
+function ajaxAddSongsToPlaylist(song_ids, play_now) {
+	$.getJSON("/music", { "song_ids": song_ids }, function(data) {
+		var songJSON;
+		$.each(data.songs, function(index, song) {
+			songJSON = {
+				title: song.title,
+				artist: song.artist,
+			};
+			songJSON[song.type] = song.url;
+
+			playlist.add(songJSON, play_now);
+		});
+	});
+}
+
+// -------------- Variables
+
+var playlist;
+
+// ---------------- On Load
+
+$(function() {
+	$("#notice").delay(2000).hide(2000);
+
+	playlist = createPlayer();
+	registerSongRowClick();
+	registerSongRowDblClick();
 
 	$("#add_to_playlist").on("click", function() {
 		var ids = $("input[name='songs[]']:checked").map(function() {
 			return this.value;
 		}).get();
-
-		$.getJSON("/music", { "song_ids": ids }, function(data) {
-			$.each(data.songs, function(index, song) {
-				playlist.add({
-					title: song.title,
-					artist: song.artist,
-					mp3: song.url
-				});
-			});
-		});
+		ajaxAddSongsToPlaylist(ids);
 	});
 
 	$("#search_form").submit(function() {
@@ -79,22 +90,20 @@ $(function() {
 		});
 	});
 
-	$(function() {
-		$("#upload_frame").load(function() {
-			var music_list_html = document.getElementById("upload_frame").contentWindow.document.body.innerHTML;
-			if (music_list_html != "") {
-				$("#music_list").html(music_list_html);
-				registerRowClick();
-				registerRowDblClick();
-			}
+	$("#upload_frame").load(function() {
+		var music_list_html = document.getElementById("upload_frame").contentWindow.document.body.innerHTML;
+		if (music_list_html != "") {
+			$("#music_list").html(music_list_html);
+			registerSongRowClick();
+			registerSongRowDblClick();
+		}
 
-			var notice = $("#notice_div");
-			var message = $("#message");
-			if (document.getElementById("message") != null) {
-				notice.html('<p id="notice">' + message.val() + '</p>');
-				notice.show().delay(2000).hide(2000);
-			}
-		});
+		var notice = $("#notice_div");
+		var message = $("#message");
+		if (document.getElementById("message") != null) {
+			notice.html('<p id="notice">' + message.val() + '</p>');
+			notice.show().delay(2000).hide(2000);
+		}
 	});
 
 	$("#delete_music_form").submit(function() {

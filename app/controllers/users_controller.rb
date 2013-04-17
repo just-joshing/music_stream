@@ -98,9 +98,16 @@ class UsersController < ApplicationController
     song = Song.new
     song.update_attributes(:audio_file => params[:audio_file], :user_id => session[:user_id])
     if song.save
-      TagLib::MPEG::File.open(song.audio_file.path) do |file|
+      TagLib::FileRef.open(song.audio_file.path) do |file|
         tag = file.tag
-        song.update_attributes(:title => tag.title, :artist => tag.artist, :album => tag.album)
+        if file and tag
+          tag.title ||= "Unknown"
+          tag.artist ||= "Unknown"
+          tag.album ||= "Unknown"
+          song.update_attributes(:title => tag.title, :artist => tag.artist, :album => tag.album)
+        else
+          song.update_attributes(:title => "ERROR", :artist => "ERROR", :album => "ERROR")
+        end
       end
 
       message = "Song successfully uploaded"

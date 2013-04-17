@@ -1,3 +1,27 @@
-<h1>Well Hi There!</h1>
-<p>Welcome to Music Stream, the premier personal music library streaming service! You really should sign up or something.</p>
+<br>
+<fieldset>
+	<h1>Welcome to Music Stream, the premier personal music library streaming service!</h1>
+	<p>You really should, like, sign up or something.</p>
 <%= link_to 'Sign Up', signup_path %>
+</fieldset>
+<br>
+<fieldset>
+	<h1>What is music stream?</h1>
+	<pre>Music stream is an online media player for you to upload your music library and play your tunes wherever you have access to the internet.</pre>
+	<h1>How much does it cost?</h1>
+	<pre>Nothing! Absolutely nothing! Just sign up and get uploading.</pre>
+	<h1>What browsers are supported?</h1>
+	<pre>Any browser that supports 'mp3's and 'm4a's or has the Adobe Flash Player Plugin installed.</pre>
+	<h1>Why can't I upload FLAC, ALAC, WAV, OGG...?</h1>
+	<pre>Unfortunately this site only allows you to upload 'mp3's and 'm4a's.
+Different browsers have varied support of audio filetypes.
+This site uses jPlayer to stream your music to you. jPlayer uses the HTML5 audio tag when your browser supports
+both 'mp3's and 'm4a's and uses Flash Player for browsers that don't support both. Flash Player doesn't support
+all of the listed audio filetypes either, so if your browser supports only some of the filetypes you've
+uploaded, jPlayer resorts to Flash which may not support all of the files you've uploaded. Flash supports both
+mp3 and m4a, so to ensure cross-browser compatibility, only mp3 and m4a files are allowed. Hopefully in the
+future we'll be able to serve you more filetypes.</pre>
+	<h1>What about AAC and MP4?</h1>
+	<pre>Give them a shot. They may or may not work. Even though aac, mp4, and m4a are all aliases of one another,
+we've been having difficulty getting aac and mp4 files to work with jPlayer.</pre>
+</fieldset>

@@ -4,13 +4,22 @@ class Song < ActiveRecord::Base
   has_attached_file :audio_file,
     :url => "/system/:class/:attachment/:id/:style/:filename",
     :path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
-  validates :audio_file, presence: true, :attachment_content_type => { :content_type => [ 'audio/mp3', 'audio/mpeg' ] }
+  validates :audio_file, presence: true, :attachment_content_type => { :content_type => [ 'audio/mp3', 'audio/mpeg', 'audio/x-m4a', 'audio/mp4' ] }
+
+  @@filetypes = {
+    'audio/mp3' => :mp3,
+    'audio/mpeg' => :mp3,
+    'audio/mpeg3' => :mp3,
+    'audio/x-m4a' => :m4a,
+    'audio/mp4' => :m4a
+  }
 
   def to_hash
     {
       title: self.title,
       artist: self.artist,
-      url: self.audio_file.url
+      url: self.audio_file.url,
+      type: @@filetypes[self.audio_file_content_type]
     }
   end
 end
