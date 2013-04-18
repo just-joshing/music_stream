@@ -24,7 +24,7 @@
 									<fieldset>
 								    <legend><strong>Upload Song</strong></legend>
 								    <div class="field">
-								      <%= file_field_tag :audio_file %>
+								      <%= file_field_tag "audio_file[]", multiple: true %>
 								      <%= submit_tag "Upload Song" %>
 								    </div>
 								  </fieldset>

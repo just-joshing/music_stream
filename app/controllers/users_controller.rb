@@ -84,15 +84,25 @@ class UsersController < ApplicationController
 
   # POST /music
   def upload
-    song = Song.new
-    song.update_attributes(:audio_file => params[:audio_file], :user_id => session[:user_id])
-    if song.save
-      tag = song.get_tag_hash
-      song.update_attributes(title: tag[:title], artist: tag[:artist], album: tag[:album])
-      message = "Song successfully uploaded"
-    else
-      message = "Song upload failed"
+    successes = 0
+    failures = 0
+
+    params[:audio_file].each do |file|
+      song = Song.new
+      song.update_attributes(:audio_file => file, :user_id => session[:user_id])
+      if song.save
+        tag = song.get_tag_hash
+        song.update_attributes(title: tag[:title], artist: tag[:artist], album: tag[:album])
+        successes += 1
+      else
+        failures += 1
+      end
     end
+
+    message = ""
+    message << view_context.pluralize(successes, "song") + " successfully uploaded" if successes > 0
+    message << " and " if successes > 0 and failures > 0
+    message << view_context.pluralize(failures, "song upload") + " failed" if failures > 0
 
     respond_to do |format|
       # Gets rendered in an iframe so it is possible to upload a file in a manner similar to ajax
