@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       }
       # ajax call
       format.json {
-        songs = Song.find(params[:song_ids])
+        songs = Song.find(params[:song_ids], order: "#{params[:sort] + " " + params[:direction]}")
         @json = { songs: [] }
         songs.each { |song| @json[:songs] << song.to_hash }
         render json: @json.to_json

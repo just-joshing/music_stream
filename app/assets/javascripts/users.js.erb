@@ -23,7 +23,9 @@ function ajaxAddSongsToPlaylist(song_ids) {
 }
 
 function ajaxAddSongsToPlaylist(song_ids, play_now) {
-	$.getJSON("/music", { "song_ids": song_ids }, function(data) {
+	var sort = $("#sort").val();
+	var direction = $("#direction").val();
+	$.getJSON("/music", { "song_ids": song_ids, "sort": sort, "direction": direction }, function(data) {
 		var songJSON;
 		$.each(data.songs, function(index, song) {
 			songJSON = {
