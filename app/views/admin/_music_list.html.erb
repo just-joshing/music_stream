@@ -3,7 +3,7 @@
 	<%= submit_tag "Search", name: nil %>
 </form>
 
-<%= form_tag music_path, method: :delete, data: { confirm: 'Are you sure you want to delete the selected songs?' }, id: 'delete_music_form' do %>
+<%= form_tag "/admin/user/#{@user.id}", method: :delete, data: { confirm: 'Are you sure you want to delete the selected songs?' }, id: 'delete_music_form' do %>
 	<%= submit_tag "Delete Selected" %>
 <% end %>
 

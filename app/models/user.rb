@@ -16,6 +16,15 @@ class User < ActiveRecord::Base
     self.role == 'admin'
   end
 
+  def self.search(query)
+    if query
+      regex = "%#{query.split.join('%')}%"
+      User.where('name like ? or email like ? or role like ?', regex, regex, regex).order("lower(name)")
+    else
+      User.order("lower(name)")
+    end
+  end
+
   private
 
   def ensure_an_admin_remains

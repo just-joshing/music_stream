@@ -60,8 +60,6 @@ var playlist;
 // ---------------- On Load
 
 $(function() {
-	$("#notice").delay(2000).hide(2000);
-
 	playlist = createPlayer();
 	registerSongRowClick();
 	registerSongRowDblClick();
@@ -113,7 +111,7 @@ $(function() {
 				url: "/music",
 				type: "post",
 				dataType: "script",
-				data: $("#delete_music_form").serialize() + "&_method=delete"
+				data: $("#delete_music_form").serialize() + "&_method=delete&" + $("#search_form").serialize()
 			});
 		}
 

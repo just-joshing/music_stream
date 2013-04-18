@@ -1,9 +1,12 @@
 MusicStream::Application.routes.draw do
   get "welcome/index"
 
-  get 'admin' => 'admin#index'
-  get '/admin/user/:id' => 'admin#user'
-  put '/admin/user/:id' => 'admin#update'
+  controller :admin do
+    get 'admin' => :index
+    get '/admin/user/:id' => :user
+    put '/admin/user/:id' => :update
+    delete '/admin/user/:id' => :destroy_music
+  end
 
   controller :sessions do
     get 'login' => :new

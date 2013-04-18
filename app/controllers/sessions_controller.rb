@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   skip_before_filter :authorize, only: [:new, :create]
 
   def new
-    unless session[:user_id].nil?
+    if session[:user_id]
       redirect_to music_path
     end
   end

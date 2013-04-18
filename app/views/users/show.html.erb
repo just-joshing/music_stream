@@ -2,6 +2,7 @@
 	<%= stylesheet_link_tag "blue.monday/jplayer.blue.monday.css" %>
 	<%= javascript_include_tag "jquery.jplayer.js" %>
 	<%= javascript_include_tag "jplayer.playlist.js" %>
+	<%= javascript_include_tag "users.js.erb" %>
 <% end %>
 
 <div>
@@ -58,9 +59,9 @@
 				<table class="table_head rounded_table_head">
 					<tr>
 						<th class="checkbox_cell"><input id="check_all" type="checkbox"/></th>
-						<th>Title</th>
-						<th>Artist</th>
-						<th>Album</th>
+						<th><%= sortable "Title" %></th>
+						<th><%= sortable "Artist" %></th>
+						<th><%= sortable "Album" %></th>
 					</tr>
 				</table>
 

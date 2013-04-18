@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <%= javascript_include_tag "admin.js.erb" %>
+<% end %>
+
 <h1>Admin Page</h1>
 <p>Welcome, <%= @admin.name %></p>
 <p>Love, HAL 9000</p>
@@ -10,14 +14,10 @@
 <% end %>
 
 <table class="rounded">
-  <tr>
-    <th>User's List</th>
-  </tr>
+  <tr><th>Users List</th></tr>
   <% @users.each do |user| %>
     <tr class="<%= cycle('shaded', '') %>">
-      <td>
-        <div><%= image_tag user.avatar.url(:thumb) %></div>
-      </td>
+      <td><div><%= image_tag user.avatar.url(:thumb) %></div></td>
       <td>
   			<div><strong>Email: </strong><%= user.email %></div>
   			<div><strong>Name: </strong><%= user.name %></div>

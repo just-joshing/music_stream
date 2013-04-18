@@ -14,6 +14,15 @@ class Song < ActiveRecord::Base
     'audio/mp4' => :m4a
   }
 
+  def self.search(user, query = nil)
+    if user and query
+      regex = "%#{query.split.join('%')}%"
+      user.songs.where('title like ? or artist like ? or album like ?', regex, regex, regex)
+    elsif user
+      user.songs
+    end
+  end
+
   def to_hash
     {
       title: self.title,
@@ -21,5 +30,19 @@ class Song < ActiveRecord::Base
       url: self.audio_file.url,
       type: @@filetypes[self.audio_file_content_type]
     }
+  end
+
+  def get_tag_hash
+    TagLib::FileRef.open(self.audio_file.path) do |file|
+      tag = file.tag if file
+      if tag
+        tag.title ||= "Unknown"
+        tag.artist ||= "Unknown"
+        tag.album ||= "Unknown"
+        { title: tag.title, artist: tag.artist, album: tag.album }
+      else
+        { title: "ERROR", artist: "ERROR", album: "ERROR" }
+      end
+    end
   end
 end

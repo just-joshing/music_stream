@@ -21,7 +21,7 @@
       <%= f.label :name %><br />
       <%= f.text_field :name, size: 40 %>
     </div>
-    <% if @user.id != session[:user_id] %>
+    <% unless @user.id == session[:user_id] %>
       <div class="field">
         <%= f.label :role %><br />
         <%= f.select :role, @options %>

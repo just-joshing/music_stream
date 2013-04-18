@@ -13,13 +13,7 @@ class UsersController < ApplicationController
       # show.js.erb
       format.js {
         @user = get_session_user
-        
-        if params[:search]
-          regex = "%#{params[:search].split.join('%')}%"
-          @songs = @user.songs.where('title like ? or artist like ? or album like ?', regex, regex, regex)
-        else
-          @songs = @user.songs
-        end
+        @songs = Song.search(@user, params[:search])
       }
       # ajax call
       format.json {
@@ -49,10 +43,8 @@ class UsersController < ApplicationController
       if @user.save
         session[:user_id] = @user.id
         format.html { redirect_to music_path, notice: "User #{@user.name} was successfully created." }
-        format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -64,10 +56,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to music_path, notice: "User #{@user.name} was successfully updated." }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -89,7 +79,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to :back }
-      format.json { head :no_content }
     end
   end
 
@@ -98,18 +87,8 @@ class UsersController < ApplicationController
     song = Song.new
     song.update_attributes(:audio_file => params[:audio_file], :user_id => session[:user_id])
     if song.save
-      TagLib::FileRef.open(song.audio_file.path) do |file|
-        tag = file.tag
-        if file and tag
-          tag.title ||= "Unknown"
-          tag.artist ||= "Unknown"
-          tag.album ||= "Unknown"
-          song.update_attributes(:title => tag.title, :artist => tag.artist, :album => tag.album)
-        else
-          song.update_attributes(:title => "ERROR", :artist => "ERROR", :album => "ERROR")
-        end
-      end
-
+      tag = song.get_tag_hash
+      song.update_attributes(title: tag[:title], artist: tag[:artist], album: tag[:album])
       message = "Song successfully uploaded"
     else
       message = "Song upload failed"
@@ -130,18 +109,19 @@ class UsersController < ApplicationController
 
     begin
       Song.transaction do
-        song_ids.each do |song_id|
-          Song.find(song_id).destroy
-        end
+        song_ids.each { |song_id| Song.find(song_id).destroy }
       end
       @message = "Songs deleted"
     rescue Exception => e
       @message = e.message
     end
 
+    user = get_session_user
+    @songs = Song.search(user, params[:search])
+
     respond_to do |format|
       format.html { redirect_to music_path }
-      format.js { @songs = get_session_user.songs }
+      format.js
     end
   end
 end
