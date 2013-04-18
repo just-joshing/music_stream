@@ -1,21 +1,5 @@
 // -------------- Functions
 
-function registerSongRowDblClick() {
-	$(".song_row").dblclick(function() {
-		var song_ids = [ $(this).find("input[type='checkbox']").val() ];
-		while (playlist.playlist.length > 0) { playlist.remove(0); }
-		ajaxAddSongsToPlaylist(song_ids, true);
-	});
-}
-
-function registerSongRowClick() {
-	$(".song_info_cell").click(function() {
-		var value = $(this).find("input[type='hidden']").val();
-		var checkbox = $("#checkbox_" + value);
-		checkbox.prop('checked', !checkbox.prop('checked'));
-	});
-}
-
 function createPlayer() {
 	return new jPlayerPlaylist(
 		{
@@ -61,10 +45,8 @@ var playlist;
 
 $(function() {
 	playlist = createPlayer();
-	registerSongRowClick();
-	registerSongRowDblClick();
 
-	$("#add_to_playlist").on("click", function() {
+	$("#add_to_playlist").click(function() {
 		var ids = $("input[name='songs[]']:checked").map(function() {
 			return this.value;
 		}).get();
@@ -81,22 +63,37 @@ $(function() {
 		return false;
 	});
 
-	$("#check_all").click(function() {
+	$("#music_list").on("click", ".sortable", function() {
+		$.getScript(this.href);
+		return false;
+	});
+
+	$("#music_list").on("click", "#check_all", function() {
 		var checked = this.checked;
 		$('input[name="songs[]"]').each(function() {
 			this.checked = checked;
 		});
 	});
 
+	$("#music_list").on("dblclick", ".song_row", function() {
+		var song_ids = [ $(this).find("input[type='checkbox']").val() ];
+		while (playlist.playlist.length > 0) { playlist.remove(0); }
+		ajaxAddSongsToPlaylist(song_ids, true);
+	});
+
+	$("#music_list").on("click", ".song_info_cell", function() {
+		var value = $(this).find("input[type='hidden']").val();
+		var checkbox = $("#checkbox_" + value);
+		checkbox.prop('checked', !checkbox.prop('checked'));
+	});
+
 	$("#upload_frame").load(function() {
 		var music_list_html = document.getElementById("upload_frame").contentWindow.document.body.innerHTML;
 		if (music_list_html != "") {
 			$("#music_list").html(music_list_html);
-			registerSongRowClick();
-			registerSongRowDblClick();
 		}
 
-		var notice = $("#notice_div");
+		var notice = $("#notice_container");
 		var message = $("#message");
 		if (document.getElementById("message") != null) {
 			notice.html('<p id="notice">' + message.val() + '</p>');

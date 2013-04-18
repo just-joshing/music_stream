@@ -14,10 +14,15 @@ class Song < ActiveRecord::Base
     'audio/mp4' => :m4a
   }
 
-  def self.search(user, query = nil)
-    if user and query
-      regex = "%#{query.split.join('%')}%"
+  def self.search(user, query = nil, sort = nil, dir = nil)
+    regex = "%#{query.split.join('%')}%" if query
+
+    if user and query and sort and dir
+      user.songs.where('title like ? or artist like ? or album like ?', regex, regex, regex).order(sort + " " + dir)
+    elsif user and query
       user.songs.where('title like ? or artist like ? or album like ?', regex, regex, regex)
+    elsif user and sort and dir
+      user.songs.order(sort + " " + dir)
     elsif user
       user.songs
     end

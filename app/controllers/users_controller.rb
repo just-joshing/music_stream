@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       # show.js.erb
       format.js {
         @user = get_session_user
-        @songs = Song.search(@user, params[:search])
+        @songs = Song.search(@user, params[:search], params[:sort], params[:direction])
       }
       # ajax call
       format.json {

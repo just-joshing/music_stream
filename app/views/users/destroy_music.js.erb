@@ -1,11 +1,7 @@
 $("#music_list").html("<%= escape_javascript(render(partial: 'music_list', locals: { message: @message })) %>")
 
-var notice = $("#notice_div");
-var message = $("#message");
+var notice_container = $("#notice_container");
 if (document.getElementById("message") != null) {
-	notice.html('<p id="notice"><%= @message %></p>');
-	notice.show().delay(2000).hide(2000);
+	notice_container.html('<p id="notice"><%= @message %></p>');
+	notice_container.show().delay(2000).hide(2000);
 }
-
-registerSongRowClick();
-registerSongRowDblClick();

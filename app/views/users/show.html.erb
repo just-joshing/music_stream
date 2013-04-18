@@ -56,15 +56,6 @@
 					<%= submit_tag "Delete" %>
 				<% end %>
 
-				<table class="table_head rounded_table_head">
-					<tr>
-						<th class="checkbox_cell"><input id="check_all" type="checkbox"/></th>
-						<th><%= sortable "Title" %></th>
-						<th><%= sortable "Artist" %></th>
-						<th><%= sortable "Album" %></th>
-					</tr>
-				</table>
-
 				<div id="music_list"><%= render 'music_list' %></div>
 			</td>
 		</tr>

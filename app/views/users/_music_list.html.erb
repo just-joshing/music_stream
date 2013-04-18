@@ -2,6 +2,18 @@
 	<input id="message" type="hidden" value="<%= message %>"/>
 <% end %>
 
+<%= hidden_field_tag :direction, params[:direction], form: "search_form" %>
+<%= hidden_field_tag :sort, params[:sort], form: "search_form" %>
+
+<table class="table_head rounded_table_head">
+	<tr>
+		<th class="checkbox_cell"><input id="check_all" type="checkbox"/></th>
+		<th><%= sortable "title" %></th>
+		<th><%= sortable "artist" %></th>
+		<th><%= sortable "album" %></th>
+	</tr>
+</table>
+
 <div class="table_body rounded_table_body">
 	<table>
 		<% @songs.each do |song| %>
