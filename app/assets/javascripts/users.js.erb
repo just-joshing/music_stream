@@ -93,6 +93,7 @@ $(function() {
 		var music_list_html = document.getElementById("upload_frame").contentWindow.document.body.innerHTML;
 		if (music_list_html != "") {
 			$("#music_list").html(music_list_html);
+			$("#upload_count").html($("#uploads").val());
 		}
 
 		var notice = $("#notice_container");

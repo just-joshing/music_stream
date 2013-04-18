@@ -4,6 +4,7 @@
 
 <%= hidden_field_tag :direction, params[:direction], form: "search_form" %>
 <%= hidden_field_tag :sort, params[:sort], form: "search_form" %>
+<%= hidden_field_tag :uploads, @songs.count %>
 
 <table class="table_head rounded_table_head">
 	<tr>

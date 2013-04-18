@@ -28,6 +28,10 @@
       </div>
     <% end %>
     <div class="field">
+      <%= f.label :upload_limit %><br />
+      <%= f.text_field :upload_limit, size: 40, type: "number" %>
+    </div>
+    <div class="field">
       <%= f.label :password, 'Password' %><br />
       <%= f.password_field :password, size: 40 %>
     </div>

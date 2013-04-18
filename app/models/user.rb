@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   before_destroy :ensure_an_admin_remains
-  attr_accessible :name, :email, :password, :password_confirmation, :avatar, :role
+  attr_accessible :name, :email, :password, :password_confirmation, :avatar, :role, :upload_limit
   has_many :songs, dependent: :destroy
+  validates :upload_limit, numericality: { greater_than_or_equal_to: 0 }
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,4}$/ }
   validates :avatar, :attachment_content_type => { :content_type => [ 'image/jpeg', 'image/png', 'image/bmp', 'image/gif' ] }

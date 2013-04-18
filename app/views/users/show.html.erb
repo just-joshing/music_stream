@@ -15,6 +15,7 @@
 							<fieldset>
 								<legend><strong><%= @user.name %></strong></legend>
 								<%= image_tag @user.avatar.url(:small)%>
+								Uploads: <span id='upload_count'><%= @user.songs.count %></span>/<%= @user.upload_limit %>
 							</fieldset>
 						</td>
 						<td>
