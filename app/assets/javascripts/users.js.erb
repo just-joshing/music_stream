@@ -23,20 +23,22 @@ function ajaxAddSongsToPlaylist(song_ids) {
 }
 
 function ajaxAddSongsToPlaylist(song_ids, play_now) {
-	var sort = $("#sort").val();
-	var direction = $("#direction").val();
-	$.getJSON("/music", { "song_ids": song_ids, "sort": sort, "direction": direction }, function(data) {
-		var songJSON;
-		$.each(data.songs, function(index, song) {
-			songJSON = {
-				title: song.title,
-				artist: song.artist,
-			};
-			songJSON[song.type] = song.url;
+	if (song_ids.length > 0) {
+		var sort = $("#sort").val();
+		var direction = $("#direction").val();
+		$.getJSON("/music", { "song_ids": song_ids, "sort": sort, "direction": direction }, function(data) {
+			var songJSON;
+			$.each(data.songs, function(index, song) {
+				songJSON = {
+					title: song.title,
+					artist: song.artist,
+				};
+				songJSON[song.type] = song.url;
 
-			playlist.add(songJSON, play_now);
+				playlist.add(songJSON, play_now);
+			});
 		});
-	});
+	}
 }
 
 // -------------- Variables

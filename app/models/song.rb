@@ -38,16 +38,20 @@ class Song < ActiveRecord::Base
   end
 
   def get_tag_hash
-    TagLib::FileRef.open(self.audio_file.path) do |file|
-      tag = file.tag if file
-      if tag
-        tag.title ||= "Unknown"
-        tag.artist ||= "Unknown"
-        tag.album ||= "Unknown"
-        { title: tag.title, artist: tag.artist, album: tag.album }
-      else
-        { title: "ERROR", artist: "ERROR", album: "ERROR" }
+    begin
+      TagLib::FileRef.open(self.audio_file.path) do |file|
+        tag = file.tag if file
+        if tag
+          tag.title ||= "Unknown"
+          tag.artist ||= "Unknown"
+          tag.album ||= "Unknown"
+          { title: tag.title, artist: tag.artist, album: tag.album }
+        else
+          { title: "ERROR", artist: "ERROR", album: "ERROR" }
+        end
       end
+    rescue
+      { title: "ERROR", artist: "ERROR", album: "ERROR" }
     end
   end
 end
