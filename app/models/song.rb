@@ -3,7 +3,8 @@ class Song < ActiveRecord::Base
   belongs_to :user
   has_attached_file :audio_file,
     :url => "/system/:class/:attachment/:id/:style/:filename",
-    :path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
+    #:path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
+    :path => "cs446/FRENCH/#{Rails.env}:url"
   validates :audio_file, presence: true, :attachment_content_type => { :content_type => [ 'audio/mp3', 'audio/mpeg', 'audio/x-m4a', 'audio/mp4' ] }
 
   @@filetypes = {

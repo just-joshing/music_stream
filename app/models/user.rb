@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
     :styles => { :small => '150x150>', :thumb => '100x100#' },
     :default_url => "/assets/default_:style.jpg",
     :url => "/system/:class/:attachment/:id/:style/:filename",
-    :path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
+    # :path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
+    :path => "cs446/FRENCH/#{Rails.env}:url"
 
   def is_admin?
     self.role == 'admin'
