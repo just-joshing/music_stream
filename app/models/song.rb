@@ -1,11 +1,19 @@
 class Song < ActiveRecord::Base
   attr_accessible :audio_file, :user_id, :title, :artist, :album
   belongs_to :user
-  has_attached_file :audio_file,
-    :url => "/system/:class/:attachment/:id/:style/:filename",
-    #:path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
-    :path => "cs446/FRENCH/#{Rails.env}:url"
+
+  if Rails.env.production?
+    has_attached_file :audio_file,
+      :url => "/system/:class/:attachment/:id/:style/:filename",
+      :path => "cs446/FRENCH/#{Rails.env}:url"
+  else
+    has_attached_file :audio_file,
+      :url => "/system/:class/:attachment/:id/:style/:filename",
+      :path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
+  end
+
   validates :audio_file, presence: true, :attachment_content_type => { :content_type => [ 'audio/mp3', 'audio/mpeg', 'audio/x-m4a', 'audio/mp4' ] }
+
 
   @@filetypes = {
     'audio/mp3' => :mp3,

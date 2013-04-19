@@ -7,12 +7,20 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, format: { with: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,4}$/ }
   validates :avatar, :attachment_content_type => { :content_type => [ 'image/jpeg', 'image/png', 'image/bmp', 'image/gif' ] }
   has_secure_password
-  has_attached_file :avatar,
-    :styles => { :small => '150x150>', :thumb => '100x100#' },
-    :default_url => "/assets/default_:style.jpg",
-    :url => "/system/:class/:attachment/:id/:style/:filename",
-    # :path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
-    :path => "cs446/FRENCH/#{Rails.env}:url"
+  
+  if Rails.env.production?
+    has_attached_file :avatar,
+      :styles => { :small => '150x150>', :thumb => '100x100#' },
+      :default_url => "/assets/default_:style.jpg",
+      :url => "/system/:class/:attachment/:id/:style/:filename",
+      :path => "cs446/FRENCH/#{Rails.env}:url"
+  else
+    has_attached_file :avatar,
+      :styles => { :small => '150x150>', :thumb => '100x100#' },
+      :default_url => "/assets/default_:style.jpg",
+      :url => "/system/:class/:attachment/:id/:style/:filename",
+      :path => ":rails_root/public/system/:class/:attachment/:id/:style/:basename.:extension"
+  end
 
   def is_admin?
     self.role == 'admin'
