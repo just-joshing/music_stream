@@ -14,7 +14,7 @@ end
 gem 'paperclip'
 gem 'rmagick'
 
-gem 'taglib-ruby', :require => 'taglib'
+# gem 'taglib-ruby', :require => 'taglib'
 
 # Gems used only for assets and not required
 # in production environments by default.
