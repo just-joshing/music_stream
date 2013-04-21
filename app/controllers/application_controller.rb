@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def authorize
     unless get_session_user
-      redirect_to login_url, notice: 'Please log in'
+      redirect_to login_url, alert: 'Please log in'
     end
   end
 

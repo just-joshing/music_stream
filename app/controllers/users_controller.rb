@@ -27,6 +27,9 @@ class UsersController < ApplicationController
 
   # GET /signup
   def new
+    if session[:user_id]
+      redirect_to music_path, alert: 'Please Logout to create new user'
+    end
     @user = User.new
   end
 

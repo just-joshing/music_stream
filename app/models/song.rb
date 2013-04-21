@@ -56,11 +56,11 @@ class Song < ActiveRecord::Base
           tag.album ||= "Unknown"
           { title: tag.title, artist: tag.artist, album: tag.album }
         else
-          { title: "ERROR", artist: "ERROR", album: "ERROR" }
+          { title: "Error", artist: "Error", album: "Error" }
         end
       end
     rescue
-      { title: "ERROR", artist: "ERROR", album: "ERROR" }
+      { title: "TagLib Error", artist: "TagLib Error", album: "TagLib Error" }
     end
   end
 end

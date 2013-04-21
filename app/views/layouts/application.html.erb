@@ -2,8 +2,10 @@
 <html>
   <head>
     <title>Music Stream</title>
+    <link rel="shortcut icon" href="<%= asset_path('favicon.ico') %>"/>
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag "bootstrap/bootstrap.css" %>
     <%= csrf_meta_tags %>
     <script>
       $(function() {
@@ -14,19 +16,53 @@
   </head>
 
   <body class="<%= controller.controller_name %>">
-    <div id="header" class="rounded">
-      <div id="userbar"><%= raw link_userbar session[:user_id] %></div>
-      <h1 id="banner"><%= link_to 'Music Stream', root_path %></h1>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <%= link_to 'Music Stream', root_path, class: 'brand' %>
+          <div class="navbar-text pull-right">
+            <ul class="nav">
+              <% if session[:user_id] %>
+                <li><%= link_to(get_session_user.name, edit_path) %></li>
+                <% if get_session_user.is_admin? %>
+                  <li><%= link_to('Admin', admin_path) %></li>
+                <% end %>
+                <li><%= link_to('Logout', logout_path, method: :delete) %></li>
+              <% else %>
+                <li><%= link_to('Sign-up', signup_path) %></li>
+                <li><%= link_to('Login', login_path) %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="notice_container">
       <% if flash.alert %>
-        <p id="notice"><%= flash.alert %></p>
+        <p id="notice" class="alert alert-error"><%= flash.alert %></p>
       <% elsif notice %>
-        <p id="notice"><%= notice %></p>
+        <p id="notice" class="alert alert-success"><%= notice %></p>
       <% end %>
     </div>
 
     <%= yield %>
+
+    <div class="navbar navbar-inverse navbar-fixed-bottom">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <div class="navbar-text pull-left">
+            <ul class="nav">
+              <li><a>Made by Joshua French</a></li>
+            </ul>
+          </div>
+          <div class="navbar-text pull-right">
+            <ul class="nav">
+              <li><a href="https://github.com/JllyGrnGiant/music_stream/">https://github.com/JllyGrnGiant/music_stream/</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

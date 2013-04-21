@@ -6,17 +6,18 @@
 <%= hidden_field_tag :sort, params[:sort], form: "search_form" %>
 <%= hidden_field_tag :uploads, @songs.count %>
 
-<table class="table_head rounded_table_head">
+<table class="table table-header table-condensed">
 	<tr>
 		<th class="checkbox_cell"><input id="check_all" type="checkbox"/></th>
 		<th><%= sortable "title" %></th>
 		<th><%= sortable "artist" %></th>
 		<th><%= sortable "album" %></th>
+		<th></th>
 	</tr>
 </table>
 
-<div class="table_body rounded_table_body">
-	<table>
+<div class="table-overflow">
+	<table class="table table-hover table-condensed">
 		<% @songs.each do |song| %>
 			<tr class="<%= cycle('shaded_odd', 'shaded_even') %> song_row">
 				<td class="checkbox_cell">

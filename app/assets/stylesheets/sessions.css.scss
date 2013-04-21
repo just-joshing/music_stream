@@ -1,3 +1,15 @@
-// Place all the styles related to the Sessions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.sessions {
+	.hero-unit {
+		max-width: 420px;
+		margin: 0 auto;
+		margin-top: 40px;
+
+		.form-signin {
+			text-align: center;
+
+			.form-signin-heading {
+				margin: 8px;
+			}
+		}
+	}
+}

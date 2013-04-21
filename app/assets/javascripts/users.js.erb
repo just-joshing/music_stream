@@ -101,7 +101,7 @@ $(function() {
 		var notice = $("#notice_container");
 		var message = $("#message");
 		if (document.getElementById("message") != null) {
-			notice.html('<p id="notice">' + message.val() + '</p>');
+			notice.html('<p id="notice" class="alert alert-info">' + message.val() + '</p>');
 			notice.show().delay(2000).hide(2000);
 		}
 	});

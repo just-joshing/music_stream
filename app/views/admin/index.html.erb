@@ -2,21 +2,21 @@
   <%= javascript_include_tag "admin.js" %>
 <% end %>
 
-<h1>Admin Page</h1>
-<p>Welcome, <%= @admin.name %></p>
-<p>Love, HAL 9000</p>
-
-<hr>
+<div class="hero-unit form-signin">
+  <h1>Admin Page</h1>
+  <p>Welcome, <%= @admin.name %></p>
+  <p>Love, HAL 9000</p>
+</div>
 
 <%= form_tag admin_path, method: :get, id: "search_form" do %>
-  <%= text_field_tag :search, params[:search], autofocus: true %>
-  <%= submit_tag "Search", name: nil %>
+  <%= text_field_tag :search, params[:search], class: "search-query", placeholder: "Search", autofocus: true %>
+  <%= submit_tag "Search", name: nil, class: 'btn btn-info' %>
 <% end %>
 
-<table class="rounded">
-  <tr><th>Users List</th></tr>
+<h1>User List</h1>
+<table class="table table-condensed">
   <% @users.each do |user| %>
-    <tr class="<%= cycle('shaded', '') %>">
+    <tr class="<%= cycle('shaded_odd', 'shaded_even') %>">
       <td><div><%= image_tag user.avatar.url(:thumb) %></div></td>
       <td>
   			<div><strong>Email: </strong><%= user.email %></div>
@@ -24,7 +24,7 @@
         <div><strong>Role: </strong><%= user.role %></div>
         <div><strong># Songs Uploaded: </strong><%= "#{Song.count(:conditions => "user_id=#{user.id}")}/#{user.upload_limit}" %>
       </td>
-      <td>
+      <td class="admin-options">
         <div><%= link_to 'Edit', "/admin/user/#{user.id}" %></div>
         <div><%= link_to 'Delete', "/users/#{user.id}", method: :delete, data: { confirm: 'Are you sure?' } %></div>
       </td>

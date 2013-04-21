@@ -5,60 +5,64 @@
 	<%= javascript_include_tag "users.js" %>
 <% end %>
 
-<div>
-	<table>
-		<tr>
-			<td>
-				<table>
-					<tr>
-						<td class="user_info">
+<div class="full-container">
+		<div class="left-container">
+			<div class="row-fluid">
+				<div class="span5 user-info">
+					<fieldset>
+						<legend><strong><%= @user.name %></strong></legend>
+						<div><%= image_tag @user.avatar.url(:small)%></div>
+						<strong>Uploads: <span id="upload_count"><%= @user.songs.count %></span>/<%= @user.upload_limit %></strong>
+					</fieldset>
+				</div>
+
+				<div class="span7">
+					<div class="row-fluid">
+						<div class="span12 upload-span">
 							<fieldset>
-								<legend><strong><%= @user.name %></strong></legend>
-								<%= image_tag @user.avatar.url(:small)%>
-								Uploads: <span id='upload_count'><%= @user.songs.count %></span>/<%= @user.upload_limit %>
-							</fieldset>
-						</td>
-						<td>
-							<div id="upload_div">
+						    <legend><strong>Upload Songs</strong></legend>
 								<%= form_tag music_path, multipart: true, target: 'upload_frame', id: "upload_form" do %>
 									<iframe id='upload_frame' name="upload_frame" style="display: none"></iframe>
-									<fieldset>
-								    <legend><strong>Upload Song</strong></legend>
-								    <div class="field">
-								      <%= file_field_tag "audio_file[]", multiple: true %>
-								      <%= submit_tag "Upload Songs" %>
-								    </div>
-								  </fieldset>
+						      <span class="btn btn-info">
+						      	<span>Choose Files</span>
+						      	<input id="audio_file_" multiple="multiple" name="audio_file[]" type="file" />
+						      </span>
+						      <%= submit_tag "Upload", class: 'btn btn-success' %>
 								<% end %>
-							</div>
+						  </fieldset>
+						</div>
+					</div>
+
+					<div class="row-fluid">
+						<div class="span12 playlist-span">
 							<fieldset>
 								<legend><strong>Playlists</strong></legend>
-								<input type="button" id="clear_playlist" value="Clear Playlist"/>
+								<input type="button" id="clear_playlist" value="Clear Playlist" class="btn"/>
 							</fieldset>
-						</td>
-					</tr>
-					<tr>
-						<td class="jplayer" colspan=2>
-							<%= render 'jplayer' %>
-						</td>
-					</tr>
-				</table>
-			</td>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			<td id="music_cell">
-				<%= form_tag music_path, method: :get, id: "search_form" do %>
-					<%= text_field_tag :search, params[:search], autofocus: true %>
-					<%= submit_tag "Search", name: nil %>
-				<% end %>
+			<div class="row-fluid">
+				<div class="span12 jplayer">
+					<%= render 'jplayer' %>
+				</div>
+			</div>
+		</div><div class="right-container">
+			<%= form_tag music_path, method: :get, id: "search_form" do %>
+				<%= text_field_tag :search, params[:search], class: "search-query", placeholder: "Search", autofocus: true %>
+				<%= submit_tag "Search", class: "btn btn-info", name: nil %>
+			<% end %>
 
-				<input type="button" id="add_to_playlist" value="Add to Playlist"/>
+			<div class="btn-group">
+				<input type="button" id="add_to_playlist" value="Add to Playlist" class="btn btn-info"/>
 
 				<%= form_tag music_path, method: :delete, data: { confirm: 'Are you sure you want to delete the selected songs?' }, id: 'delete_music_form' do %>
-					<%= submit_tag "Delete" %>
+					<%= submit_tag "Delete", class: "btn btn-info" %>
 				<% end %>
+			</div>
 
-				<div id="music_list"><%= render 'music_list' %></div>
-			</td>
-		</tr>
-	</table>
+			<div id="music_list"><%= render 'music_list' %></div>
+		</div>
 </div>

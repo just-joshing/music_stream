@@ -12,48 +12,12 @@
  *= require_tree .
  */
 
-#header {
-	background-color: black;
-	padding: 10px;
+html {
+	height: 100%;
 }
 
-#banner, #userbar {
-	display: inline;
-}
-
-#banner a {
-	text-decoration: none;
-	color: white;
-}
-
-#userbar {
-	float: right;
-	text-align: right;
-}
-
-#userbar a {
-	color: #bbb;
-	text-decoration: none;
-}
-
-#userbar a:hover {
-	color: white;
-}
-
-fieldset {
-	background-color: #eee;
-	border-color: #009BEA;
-	border-style: solid;
-}
-
-.rounded, fieldset {
-	border-radius: 5px;
-}
-
-.rounded_table_head {
-	border-radius: 5px 5px 0px 0px;
-}
-
-.rounded_table_body {
-	border-radius: 0px 0px 5px 5px;
+body {
+	height: calc(100% - 82px);
+	padding-top: 41px;
+	padding-bottom: 41px;
 }

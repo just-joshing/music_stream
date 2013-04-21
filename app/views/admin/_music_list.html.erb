@@ -1,28 +1,32 @@
 <form id="search_form" method="get" action=<%= "/admin/user/#{@user.id}" %>>
-	<%= text_field_tag :search, params[:search], autofocus: true %>
-	<%= submit_tag "Search", name: nil %>
+	<%= text_field_tag :search, params[:search], class: "search-query", placeholder: "Search", autofocus: true %>
+	<%= submit_tag "Search", name: nil, class: 'btn btn-info' %>
 </form>
 
 <%= form_tag "/admin/user/#{@user.id}", method: :delete, data: { confirm: 'Are you sure you want to delete the selected songs?' }, id: 'delete_music_form' do %>
-	<%= submit_tag "Delete Selected" %>
+	<%= submit_tag "Delete Selected", class: "btn btn-info"  %>
 <% end %>
 
-<table class="rounded">
-	<tr>
-		<th class="checkbox_cell"><input id="check_all" type="checkbox"/></th>
-		<th>Title</th>
-		<th>Artist</th>
-		<th>Album</th>
-	</tr>
-
-	<% @songs.each do |song| %>
-		<tr class="<%= cycle('shaded', '') %>">
-			<td class="checkbox_cell">
-				<input name="songs[]" form="delete_music_form" type="checkbox" value="<%= song.id %>"/>
-			</td>
-			<td><%= song.title %></td>
-			<td><%= song.artist %></td>
-			<td><%= song.album %></td>
+<div class="table-container">
+	<table class="table table-header table-condensed">
+		<tr>
+			<th class="checkbox_cell"><input id="check_all" type="checkbox"/></th>
+			<th><%= sortable "title" %></th>
+			<th><%= sortable "artist" %></th>
+			<th><%= sortable "album" %></th>
 		</tr>
-	<% end %>
-</table>
+	</table>
+
+	<table class="table table-hover table-condensed">
+		<% @songs.each do |song| %>
+			<tr class="<%= cycle('shaded_odd', 'shaded_even') %> song_row">
+				<td class="checkbox_cell">
+					<input id="checkbox_<%= song.id %>" name="songs[]" form="delete_music_form" type="checkbox" value="<%= song.id %>"/>
+				</td>
+				<td class="song_info_cell"><input type="hidden" value="<%= song.id %>"/><%= song.title %></td>
+				<td class="song_info_cell"><input type="hidden" value="<%= song.id %>"/><%= song.artist %></td>
+				<td class="song_info_cell"><input type="hidden" value="<%= song.id %>"/><%= song.album %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>

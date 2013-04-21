@@ -3,41 +3,118 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .admin {
-	.field {
-		input, img {
-			display: inline;
-			vertical-align: middle;
-		}
+	.form-signin {
+		text-align: center;
+	}
 
-		select {
-			width: 25em;
+	.hero-unit {
+		max-width: 600px;
+		margin: 0 auto;
+		margin-top: 40px;
+
+		.form-signin-heading {
+			margin: 8px;
 		}
 	}
-	
+
+	.well {
+		background-color: white;
+	}
+
+	span.btn {
+		position: relative;
+		overflow: hidden;
+
+		input {
+			position: absolute;
+			top: 0;
+			right: 0;
+			margin: 0;
+			opacity: 0;
+			filter: alpha(opacity=0);
+			transform: translate(-300px, 0) scale(4);
+			font-size: 23px;
+			direction: ltr;
+			cursor: pointer;
+		}
+	}
+
+	.table-container {
+		padding-bottom: 41px;
+	}
+
 	#search_form {
 		float: right;
+		margin-bottom: 0;
 	}
 
-	.shaded {
-		background-color: #ddd;
+	#delete_music_form {
+		display: inline;
 	}
 
-	.checkbox_cell {
-		width: 10px;
+	.sortable {
+		padding-right: 12px;
+		background-repeat: no-repeat;
+		background-position: right center;
 	}
+
+	.asc { background-image: url(/assets/up_arrow.png); }
+	.desc { background-image: url(/assets/down_arrow.png); }
 
 	table {
-		width: 100%;
-		border: 2px solid #bbb;
-		background-color: #eee;
+		margin-bottom: 0px;
 
-		th {
-			text-align: left;
+		th, td {
+			width: 33%;
+			vertical-align: middle;
 		}
 
-		img {
-			display: inline;
-			vertical-align: middle;
+		.checkbox_cell {
+			width: 10px;
+			text-align: left;
+
+			input {
+				margin: 0;
+			}
+		}
+	}
+
+	.table-header th {
+		border: 0;
+		background-color: #ccc;
+	}
+
+	table td {
+		border: 0;
+	}
+
+	.table-hover tr:hover td {
+		background-color: #009be3;
+	}
+
+	.song_row td {
+		-moz-user-select     : none;
+		-khtml-user-select   : none;
+		-webkit-user-select  : none;
+		-o-user-select       : none;
+		user-select          : none;
+	}
+
+	.shaded_odd {
+		background-color: #445;
+		color: #ddd;
+		
+		.admin-options {
+			background-color: #111;
+		}
+	}
+
+	.shaded_even {
+		background-color: #667;
+		color: #ccc;
+
+		.admin-options {
+			background-color: #222;
 		}
 	}
 }

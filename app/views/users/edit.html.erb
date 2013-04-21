@@ -2,6 +2,4 @@
 	<%= javascript_include_tag "users.js" %>
 <% end %>
 
-<h1>Edit Account</h1>
-
-<%= render :partial => 'form', :locals => { :url_path => edit_path } %>
+<%= render :partial => 'form', :locals => { :url_path => edit_path, :header => 'Edit Profile' } %>

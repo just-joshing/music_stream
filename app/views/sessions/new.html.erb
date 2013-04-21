@@ -2,25 +2,11 @@
 	<%= javascript_include_tag "sessions.js" %>
 <% end %>
 
-<div>
-	<%= form_tag do %>
-		<fieldset>
-			<legend><strong>Please Log In</strong></legend>
-
-			<table>
-				<tr>
-					<td><%= label_tag :email, 'Email:' %></td>
-					<td><%= text_field_tag :email, params[:email], autofocus: true %></td>
-				</tr>
-				<tr>
-					<td><%= label_tag :password, 'Password:' %></td>
-					<td><%= password_field_tag :password, params[:password] %></td>
-				</tr>
-			</table>
-
-			<div>
-				<%= submit_tag 'Login' %>
-			</div>
-		</fieldset>
+<div class="hero-unit">
+	<%= form_tag({}, { class: 'form-signin' }) do %>
+		<h1 class="form-signin-heading">Please Log In</h1>
+		<%= text_field_tag :email, params[:email], class: 'input-block-level', placeholder: 'Email Address', autofocus: true %>
+		<%= password_field_tag :password, params[:password], class: 'input-block-level', placeholder: 'Password' %>
+		<%= submit_tag 'Login', class: 'btn btn-large btn-primary' %>
 	<% end %>
 </div>

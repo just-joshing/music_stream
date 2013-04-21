@@ -2,6 +2,4 @@
 	<%= javascript_include_tag "users.js" %>
 <% end %>
 
-<h1>Create Account</h1>
-
-<%= render :partial => 'form', :locals => { :url_path => signup_path } %>
+<%= render :partial => 'form', :locals => { :url_path => signup_path, :header => 'Create User' } %>

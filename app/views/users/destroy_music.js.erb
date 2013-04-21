@@ -4,6 +4,6 @@ $("#upload_count").html($("#uploads").val());
 
 var notice_container = $("#notice_container");
 if (document.getElementById("message") != null) {
-	notice_container.html('<p id="notice"><%= @message %></p>');
+	notice_container.html('<p id="notice" class="alert alert-info"><%= @message %></p>');
 	notice_container.show().delay(2000).hide(2000);
 }

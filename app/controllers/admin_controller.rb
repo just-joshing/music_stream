@@ -9,7 +9,7 @@ class AdminController < ApplicationController
   def user
     @options = ["admin", "user"];
   	@user = User.find(params[:id])
-    @songs = Song.search(@user, params[:search])
+    @songs = Song.search(@user, params[:search], params[:sort], params[:direction])
   end
 
   def update
@@ -35,16 +35,16 @@ class AdminController < ApplicationController
           Song.find(song_id).destroy
         end
       end
-      @message = "Songs deleted"
+      notice = "Songs deleted"
     rescue Exception => e
-      @message = e.message
+      notice = e.message
     end
 
     @user = User.find(params[:id])
     @songs = @user.songs
 
     respond_to do |format|
-      format.html { render action: "user" }
+      format.html { redirect_to "/admin/user/#{@user.id}", notice: notice }
     end
   end
 end

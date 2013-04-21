@@ -1,9 +1,9 @@
-<%= form_for @user, :url => url_path, :html => { :multipart => true } do |f| %>
+<%= form_for @user, :url => url_path, :html => { class: 'form-signin', :multipart => true } do |f| %>
   <% if @user.errors.any? %>
-    <div id="error_explanation">
+    <div class="alert alert-error">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
+      <ul class="nav nav-stacked">
       <% @user.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
@@ -11,31 +11,21 @@
     </div>
   <% end %>
 
-  <fieldset>
-    <legend><strong>Enter User Details</strong></legend>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.text_field :email, size: 40, autofocus: true %>
-    </div>
-    <div class="field">
-      <%= f.label :name %><br />
-      <%= f.text_field :name, size: 40 %>
-    </div>
-    <div class="field">
-      <%= f.label :password, 'Password' %><br />
-      <%= f.password_field :password, size: 40 %>
-    </div>
-    <div class="field">
-      <%= f.label :password_confirmation, 'Confirm' %><br />
-      <%= f.password_field :password_confirmation, size: 40 %>
-    </div>
-    <div class="field">
-      <%= f.label :avatar %><br />
+  <div class="hero-unit">
+    <h1 class="form-signin-heading"><%= header %></h1>
+    <%= f.text_field :email, size: 40, class: 'input-block-level', placeholder: 'Email Address', autofocus: true %>
+    <%= f.text_field :name, size: 40, class: 'input-block-level', placeholder: 'Name' %>
+    <%= f.password_field :password, size: 40, class: 'input-block-level', placeholder: 'Password' %>
+    <%= f.password_field :password_confirmation, size: 40, class: 'input-block-level', placeholder: 'Confirm Password' %>
+    <div class="well">
       <%= image_tag @user.avatar.url(:thumb)%>
-      <%= f.file_field :avatar %>
+      <span class="btn btn-success">
+        <span>Choose Avatar File</span>
+        <input id="user_avatar" name="user[avatar]" type="file" />
+      </span>
     </div>
-    <div class="actions">
-      <%= f.submit %>
+    <div>
+      <%= f.submit class: 'btn btn-large btn-primary' %>
     </div>
-  </fieldset>
+  </div>
 <% end %>
