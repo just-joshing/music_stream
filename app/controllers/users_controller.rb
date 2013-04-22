@@ -141,7 +141,7 @@ class UsersController < ApplicationController
     end
 
     user = get_session_user
-    @songs = Song.search(user, params[:search], params[:sort], params[:direction])
+    @songs = Song.search(user, nil, params[:sort], params[:direction])
 
     respond_to do |format|
       format.html { redirect_to music_path }

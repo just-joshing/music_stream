@@ -1,1 +1,5 @@
 $("#music_list").html("<%= escape_javascript(render('music_list')) %>");
+
+// Force re-rendering of element - Hack for Chrome not redrawing table
+$('#music_list').height($('#music_list').height() + 1);  // re-renders control
+$('#music_list').height($('#music_list').height() -1);   // resets to original height

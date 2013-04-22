@@ -12,7 +12,6 @@
 		<th><%= sortable "title" %></th>
 		<th><%= sortable "artist" %></th>
 		<th><%= sortable "album" %></th>
-		<th></th>
 	</tr>
 </table>
 
@@ -23,9 +22,9 @@
 				<td class="checkbox_cell">
 					<input id="checkbox_<%= song.id %>" name="songs[]" form="delete_music_form" type="checkbox" value="<%= song.id %>"/>
 				</td>
-				<td class="song_info_cell"><input type="hidden" value="<%= song.id %>"/><%= song.title %></td>
-				<td class="song_info_cell"><input type="hidden" value="<%= song.id %>"/><%= song.artist %></td>
-				<td class="song_info_cell"><input type="hidden" value="<%= song.id %>"/><%= song.album %></td>
+				<td class="song_info_cell"><input type="hidden" value="<%= song.id %>"/><div><%= song.title %></div></td>
+				<td class="song_info_cell"><input type="hidden" value="<%= song.id %>"/><div><%= song.artist %></div></td>
+				<td class="song_info_cell"><input type="hidden" value="<%= song.id %>"/><div><%= song.album %></div></td>
 			</tr>
 		<% end %>
 	</table>

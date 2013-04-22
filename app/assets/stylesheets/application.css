@@ -21,3 +21,7 @@ body {
 	padding-top: 41px;
 	padding-bottom: 41px;
 }
+
+.navbar {
+	min-width: 550px;
+}
